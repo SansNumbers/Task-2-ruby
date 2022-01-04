@@ -1,0 +1,19 @@
+
+<div class="container">
+  <h6>
+  </h6>
+  <div class="mail-icon">
+    <i class="bi bi-envelope-open"></i>
+  </div>
+  <p class="verify">Verify your e-mail</p>
+  <p class="verify-text">Click on the link that was sent to the email address you entered: <strong><%= @user.email %></strong></p>
+  <p class="verify-text">to confirm your email address and continue the registration process.</p>
+
+  <p class="lb">fefe</p>
+
+  <br>
+  <p class="verify-text">Did not receive the e-mail? Check your spam filter or</p>
+
+  <p class="verify-text"><strong><%= link_to 'resend', resend_path, class: "resend-link" %></strong></p>
+
+</div>
