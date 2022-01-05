@@ -1,9 +1,6 @@
-Welcome to example.com, <%= @user.name %>
-===============================================
-
-You have successfully signed up to example.com,
-your username is: <%= @user.name %>.
-
-To login to the site, just follow this link: <%= @url %>.
-
+Welcome to Mentalhealthcoaching.com, <%= params[:user].name %>
+--------------------------------------------------------------
+You have successfully signed up to Mentalhealthcoaching.com,
+click the link above if you recognise the activity, link expires in 15 minutes.
+<%= link_to 'Verify email', sign_up_user_verification_url(token: @token) %>
 Thanks for joining and have a great day!

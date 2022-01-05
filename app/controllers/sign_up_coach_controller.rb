@@ -1,0 +1,2 @@
+class SignUpCoachController < ApplicationController
+end
