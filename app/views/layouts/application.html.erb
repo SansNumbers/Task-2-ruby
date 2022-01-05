@@ -13,11 +13,20 @@
   </head>
 
   <body>
-
-  <%= render 'landing_page/header'%>
     <%= yield %>
-  <%= render 'landing_page/footer'%>
-
-  
+    <footer>
+      <div class="footer-main">
+        © 2021 All rights reserved
+      </div>
+      <div class="footer-menu">
+        Terms
+      </div>
+      <div class="footer-menu">
+        Privacy
+      </div>
+      <div class="footer-menu">
+        Security
+      </div>
+    </footer>
   </body>
 </html>

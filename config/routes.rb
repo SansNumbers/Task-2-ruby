@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   post '/sign_up_user', to: 'sign_up_user#create'
   get '/sign_up_user/verification', to: 'sign_up_user#edit'
   patch '/sign_up_user/verification', to: 'sign_up_user#update'
-  get '/sign_up_user/verification/resend/', to: 'sign_up_user#resend', as: 'resend'
-  # coach
-  # get '/sign_up_coach', to: 'sign_up_coaches#new'
-  # post '/become_coach', to: 'registration_coaches#create'
-  # get '/become_coach/update', to: 'registration_coaches#edit'
-  # patch '/become_coach/update', to: 'registration_coaches#update'
+  get '/sign_up_user/verification/resend/', to: 'sign_up_user#resend', as: 'resend_user'
 
+  # coach
+  get '/sign_up_coach', to: 'sign_up_coach#index'
+  post '/sign_up_coach', to: 'sign_up_coach#create'
+  get '/sign_up_coach/verification', to: 'sign_up_coach#edit'
+  patch '/sign_up_coach/verification', to: 'sign_up_coach#update'
+  get '/sign_up_coach/verification/resend/', to: 'sign_up_coach#resend', as: 'resend_coach'
 
   # sign-in # user
   get 'sign_in_user', to: 'sign_in_user#index'
@@ -21,26 +22,23 @@ Rails.application.routes.draw do
   # delete 'logout', to: 'sign_in_user#destroy'
 
   # coach
-  # get '/sign_in/coach', to: 'authorization_coach#new'
-  # post '/sign_in/coach', to: 'authorization_coach#create'
+  get '/sign_in/coach', to: 'sign_in_coach#new'
+  post '/sign_in/coach', to: 'sign_in_coach#create'
   # delete 'logout', to: 'authorization_coach#destroy', as: 'logout_coach'
-  
+
   # user contoller
   get '/user/:id', to: 'user#show', as: 'user_page'
   # get '/coach/:id', to: 'coach#show', as: 'coach_page'
 
-
-
   # # reset password contoller
-  # get '/reset_password/new', to: 'reset_password#new'
-  # post '/reset_password/new', to: 'reset_password#create'
-  # get '/reset_password/edit', to: 'reset_password#edit'
-  # patch '/reset_password/edit', to: 'reset_password#update'
+  get '/reset_password/index', to: 'reset_password_user#index'
+  post '/reset_password/index', to: 'reset_password_user#create'
+  get '/reset_password/edit', to: 'reset_password_user#edit'
+  patch '/reset_password/edit', to: 'reset_password_user#update'
 
   # # reset password coach controller
   # get '/reset_password_coach/new', to: "reset_password_coach#new"
   # post '/reset_password_coach/new', to: "reset_password_coach#create"
   # get '/reset_password_coach/edit', to: "reset_password_coach#edit"
   # patch '/reset_password_coach/edit', to: "reset_password_coach#update"
-
 end

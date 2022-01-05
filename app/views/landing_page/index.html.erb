@@ -1,3 +1,22 @@
+<%= stylesheet_link_tag 'landing.css' %>
+<nav class="navbar navbar-expand-lg nav_background fixed-top">
+  <div class="container-fluid pad">
+    <a class="navbar-brand logo logo-button" href="#">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link nav-link-style" aria-current="page" href="#content-two">How it work?</a>
+        <a class="nav-link nav-link-style" href="#content-techniques">Techniques</a>
+        <a class="nav-link nav-link-style" href="#content-coaches">Coaches</a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <%= link_to "SIGN IN", sign_in_user_path, class: "btn btn-sing-in" %>
+    </div>
+  </div>
+</nav>
 <div class="content">
   <div class="row">
     <div class="col-6">
@@ -54,56 +73,85 @@
     </div>
     <div class="row">
       <div class="col-6">
-        <div class="colum-users-coaches-data">
-          <div class="list-number">1</div>
-          <div class="pad-in-block"> You can choose the coach with whom you will be most comfortable working.</div>
+        <div class="row-width">
+          <div class="row box">
+            <div class="col-2 number-size">
+              1
+            </div>
+            <div class="col-10">
+              <div class="text-col-10"> You can choose the coach with whom you will be most comfortable working.</div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="colum-users-coaches-data">
-          <div class="list-number">1</div>
-          <div class="pad-in-block">You can choose the coach with whom you will be most comfortable working.</div>
-
+        <div class="row-width">
+          <div class="row box">
+            <div class="col-2 number-size">
+              1
+            </div>
+            <div class="col-10">
+              <div class="text-col-10"> You can choose the coach with whom you will be most comfortable working.</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-6">
-        <div class="colum-users-coaches-data">
-          <div class="list-number">2</div>
-          <div class="pad-in-block"> Your coach will make a program for you using the best psychotherapy techniques
-            available today.
+        <div class="row-width">
+          <div class="row box">
+            <div class="col-2 number-size">
+              2
+            </div>
+            <div class="col-10">
+              <div class="text-col-10"> Your coach will make a program for you using the best psychotherapy techniques
+                available today.</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="colum-users-coaches-data">
-          <div class="list-number">2</div>
-          <div class="pad-in-block">We have all the most modern and latest techniques in the field of psychotherapy for
-            you and your users.
+        <div class="row-width">
+          <div class="row box">
+            <div class="col-2 number-size">
+              2
+            </div>
+            <div class="col-10">
+              <div class="text-col-10"> We have all the most modern and latest techniques in the field of psychotherapy for
+                you and your users.</div>
+            </div>
           </div>
-
         </div>
       </div>
     </div>
     <br>
     <div class="row">
       <div class="col-6">
-        <div class="colum-users-coaches-data">
-          <div class="list-number">3</div>
-          <div class="pad-in-block"> Your coach will support you in personal communication throughout the program and
-            you will see real progress and feel better!
+        <div class="row-width">
+          <div class="row box">
+            <div class="col-2 number-size">
+              3
+            </div>
+            <div class="col-10">
+              <div class="text-col-10">Your coach will support you in personal communication throughout the program and
+                you will see real progress and feel better!</div>
+            </div>
           </div>
         </div>
       </div>
       <div class="col-6">
-        <div class="colum-users-coaches-data">
-          <div class="list-number">3</div>
-          <div class="pad-in-block">You can get real practice as a psychotherapist, observing the progress of your work
-            with various problems of users online.
+        <div class="row-width">
+          <div class="row box">
+            <div class="col-2 number-size">
+              3
+            </div>
+            <div class="col-10">
+              <div class="text-col-10">You can get real practice as a psychotherapist, observing the progress of your work
+                with various problems of users online.</div>
+            </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -193,7 +241,8 @@
     <br>
     <div class="center">
       <!-- <button class="btn btn-join-us-center">JOIN US</button> -->
-      <%= link_to "JOIN US", "/", class: "btn btn-join-us-center" %>
+      <%= link_to "JOIN US", sign_up_user_path, class: "btn btn-join-us-center" %>
+
     </div>
   </div>
 </a>
@@ -266,9 +315,9 @@
                     <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
                   </div>
                   <div class="name-coach">
-                    <span class="coach-name">Leo Ellignton</span><br>
+                    <span class="coach-name">Amelia Adamson</span><br>
                     <span class="status">Coach</span>
-                    <p class="coach-info-left">31 years | Male | 10 users</p>
+                    <p class="coach-info-left">36 years | Male | 27 users</p>
                     <p class="tages-info">Areas of Expertise</p>
                     <span class="tags">Depression</span>
                     <span class="tags">Anxiety</span>
@@ -285,9 +334,9 @@
                     <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
                   </div>
                   <div class="name-coach">
-                    <span class="coach-name">Leo Ellignton</span><br>
+                    <span class="coach-name">Amelia Adamson</span><br>
                     <span class="status">Coach</span>
-                    <p class="coach-info-left">31 years | Male | 10 users</p>
+                    <p class="coach-info-left">36 years | Male | 27 users</p>
                     <p class="tages-info">Areas of Expertise</p>
                     <span class="tags">Depression</span>
                     <span class="tags">Anxiety</span>
@@ -304,11 +353,12 @@
                     <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
                   </div>
                   <div class="name-coach">
-                    <span class="coach-name">Gabriel Wilson</span><br>
+                    <span class="coach-name">Amelia Adamson</span><br>
                     <span class="status">Coach</span>
-                    <p class="coach-info-left">32 years | Male | 17 users</p>
+                    <p class="coach-info-left">36 years | Male | 27 users</p>
                     <p class="tages-info">Areas of Expertise</p>
                     <span class="tags">Depression</span>
+                    <span class="tags">Anxiety</span>
                   </div>
                 </div>
               </div>
@@ -323,11 +373,12 @@
                     <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
                   </div>
                   <div class="name-coach">
-                    <span class="coach-name">Tom Young</span><br>
+                    <span class="coach-name">Amelia Adamson</span><br>
                     <span class="status">Coach</span>
-                    <p class="coach-info-left">32 years | Male | 17 users</p>
+                    <p class="coach-info-left">36 years | Male | 27 users</p>
                     <p class="tages-info">Areas of Expertise</p>
                     <span class="tags">Depression</span>
+                    <span class="tags">Anxiety</span>
                   </div>
                 </div>
               </div>
@@ -341,11 +392,12 @@
                     <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
                   </div>
                   <div class="name-coach">
-                    <span class="coach-name">Tom Young</span><br>
+                    <span class="coach-name">Amelia Adamson</span><br>
                     <span class="status">Coach</span>
-                    <p class="coach-info-left">32 years | Male | 17 users</p>
+                    <p class="coach-info-left">36 years | Male | 27 users</p>
                     <p class="tages-info">Areas of Expertise</p>
                     <span class="tags">Depression</span>
+                    <span class="tags">Anxiety</span>
                   </div>
                 </div>
               </div>
@@ -361,7 +413,7 @@
     <br>
     <div class="center">
       <!-- <button class="btn btn-join-us-center">BECOME COACH</button> -->
-      <%= link_to "BECOME COACH", "/", class: "btn btn-join-us-center" %>
+      <%= link_to "BECOME COACH", sign_up_coach_path, class: "btn btn-join-us-center" %>
     </div>
   </div>
 </a>

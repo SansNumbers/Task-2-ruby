@@ -1,9 +1,10 @@
 <div class="container">
-  <h4 class="wait-title">Hello, <strong><%= @user.name %></strong>!</h4>
+  <h4 class="wait-title">Hello, <strong><%= @user.email %></strong>!</h4>
   <p class="help-text">You have registered as a User in our system.</p>
   <p class="help-text">Please, share some personal information about you so that we can</p>
   <p class="help-text">personalize your onboarding experience</p>
-  <%= form_with multipart: true, model: @user, class: "form-registration", url: sign_up_user_path do |f| %>
+  
+  <%= form_with multipart: true, model: @user, class: "form-registration", url: sign_up_user_verification_path do |f| %>
     <div class="image-input">
       <img class="rounded-circle" id="output" src="<%= asset_path('camera.png') %>"/>
       <label for="avatar">
@@ -44,9 +45,11 @@
     <br>
     <div class="form-group">
       <label class="labels" for="tags">What problem would you like to solve?</label>
-      <!--<select class="form-control select2-multi" name="user[problems][]" multiple="multiple">
-
-      </select>-->
+      <select class="form-control select2-multi" name="user[problems][]" multiple="multiple">
+        <% @problems.each do |data|%>
+            <option value="<%= data[:name]%>"><%= data[:name] %></option>
+        <% end %>
+      </select>
     </div>
     <br>
     <script>

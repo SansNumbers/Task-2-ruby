@@ -1,0 +1,20 @@
+<div class="container">
+  <h4 class="reset-title">Create new password</h4>
+  <p class="help-text">Your new password must contain at least 8 characters,</p>
+  <p class="help-text">include a number and lowercase letter</p>
+  <%= form_with model: @user, class: "form-registration", url: reset_password_user_verify_path(token: params[:token]) do |f| %>
+    <div class="form-group" data-controller="password-toggle">
+      <%= f.label :password, class: "labels" %>
+      <%= f.password_field :password, class: "field" %>
+    </div>
+    <br>
+
+    <div class="form-group" data-controller="password-toggle">
+      <%= f.label :password_confirmation, class: "labels" %>
+      <%= f.password_field :password_confirmation, class: "field " %>
+    </div>
+    <br>
+    <%= f.submit 'SAVE CHANGES', class: "btn btn-sing-up marge-top" %>
+  <% end %>
+
+</div>
