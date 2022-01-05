@@ -17,8 +17,8 @@ class SignUpUserController < ApplicationController
   def edit
     @problems = Problem.all
     @user = User.find_signed!(params[:token], purpose: 'sign_up_user_verify')
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    redirect_to sign_up_user_path, alert: 'Your token has expired. Please try again.'
+  #rescue ActiveSupport::MessageVerifier::InvalidSignature
+    #redirect_to sign_up_user_path, alert: 'Your token has expired. Please try again.'
   end
 
   def update

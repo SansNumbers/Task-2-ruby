@@ -15,6 +15,10 @@
   
     <% invalid = @user.errors.include?(:name) %>
 
+    <% if alert %>
+      <p class="alert"><%= alert%></p>
+    <% end %>
+
     <div class="form-group">
       <%= f.label :name, class: "labels" %>
       <%= f.text_field :name, class: "field form-control #{'is-invalid' if invalid}"%>
