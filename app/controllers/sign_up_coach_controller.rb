@@ -17,18 +17,25 @@ class SignUpCoachController < ApplicationController
   def edit
     @problems = Problem.all
     @coach = Coach.find_signed!(params[:token], purpose: 'sign_up_coach_verify')
+    session[:coach_id] = @coach.id
+
+    puts '-------'
+    puts session[:coach_id]
+    puts '-------'
   rescue ActiveSupport::MessageVerifier::InvalidSignature
     redirect_to sign_up_coach_verification_path, alert: 'Your token has expired. Please try again.'
   end
 
   def update
-    @coach = Coach.find_by(id: session[:coach_id]) if session[:coach_id]
-
-    Coaches::EditProfileService.call(@coach, params)
-    redirect_to sign_in_coach_path
-  rescue ServiceError => e
-    flash[:error] = e.message
-    render :edit
+    @coach = Coach.find(session[:coach_id])
+    if @coach.update(updated_params)
+      params[:coach][:problems]&.each do |problem|
+        @coach.problems << Problem.find_by(title: problem)
+      end
+      redirect_to coach_page_path(@coach.id)
+    else
+      render :edit
+    end
   end
 
   def resend
@@ -37,15 +44,13 @@ class SignUpCoachController < ApplicationController
     render :create
   end
 
-  def destroy
-    Coach.find_by_id(session[:coach_id]).destroy if session[:coach_id]
-    session[:coach_id] = nil
-    redirect_to sign_up_coach_path
-  end
-
   private
 
   def coach_params
     params.require(:coach).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def updated_params
+    params.require(:coach).permit(:avatar, :age, :gender, :education, :experience, :licenses, :socials)
   end
 end

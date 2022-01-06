@@ -10,6 +10,7 @@ class CreateCoaches < ActiveRecord::Migration[6.1]
       t.text :experience
       t.text :licenses
       t.text :education
+      t.text :socials
 
       t.timestamps
     end

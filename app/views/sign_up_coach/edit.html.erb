@@ -1,26 +1,35 @@
+<nav class="navbar navbar-expand-lg nav_background fixed-top">
+    <div class="container-fluid pad">
+    <a class="navbar-brand logo logo-button" href="#">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
+</nav>
+
 <div class="container">
     <h4 class="wait-title">Hello, <strong><%= @coach.name %></strong>!</h4>
     <p class="help-text">You have registered as a Coach in our system.</p>
     <p class="help-text">Please, share some personal information about you so that we can</p>
     <p class="help-text">personalize your onboarding experience</p>
 
-    <%= form_with multipart: true, model: @coach, class: "form-registration", url: sign_up_coach_path do |f| %>
+    <%= form_with multipart: true, model: @coach, class: "form-registration", url: sign_up_coach_verification_path do |f| %>
     <div class="image-input">
         <img class="rounded-circle" id="output" src="<%= asset_path('camera.png') %>"/>
         <label for="avatar">
-            <h4 class="upload">Upload profile photo</h4>
-            <p class="upload-text">Image format should be png, jpg</p>
-            <p class="upload-text">no more than 5 Mb</p>
+        <h4 class="upload">Upload profile photo</h4>
+        <p class="upload-text">Image format should be png, jpg</p>
+        <p class="upload-text">no more than 5 Mb</p>
         </label>
-        <input type="file" accept="image/*" name="coach[coach_avatar]" id="avatar" onchange="loadFile(event)">
+        <input type="file" accept="image/*" name="coach[avatar]" id="avatar" onchange="loadFile(event)">
         <script>
-            var loadFile = function(event) {
-                var output = document.getElementById('output');
-                output.src = URL.createObjectURL(event.target.files[0]);
-                output.onload = function() {
-                    URL.revokeObjectURL(output.src)
-                }
-            };
+        var loadFile = function(event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+            URL.revokeObjectURL(output.src) // free memory
+            }
+        };
         </script>
     </div>
     <div class="form-group">
@@ -31,86 +40,92 @@
 
     <label class="labels">Gender</label>
     <div class="sign_for_gender">
-        <label class="link_for_gender male" for="male">
+            <label class="link_for_gender male" for="male">
             <input type="radio" class="female" name="coach[gender]" id="male" value="male">
             <p class="margin-none">MALE</p>
-        </label>
-        <label class="link_for_gender female" for="female">
+            </label>
+
+
+            <label class="link_for_gender female" for="female">
             <input type="radio" class="female" name="coach[gender]" id="female" value="female" checked>
             <p class="margin-none">FEMALE</p>
-        </label>
+            </label>
     </div>
     <br>
     <div class="form-group">
         <label class="labels" for="tags">Areas of expertise</label>
         <select class="form-control select2-multi" name="coach[problems][]" multiple="multiple">
-            <% @problems.each do |data|%>
-            <option value="<%= data[:title]%>"><%= data[:title] %></option>
-            <% end %>
+        <% @problems.each do |data|%>
+            <option value="<%= data[:name]%>"><%= data[:name] %></option>
+        <% end %>
         </select>
     </div>
     <br>
     <script>
         $('.select2-multi').select2();
     </script>
-    <label for="edu" class="labels">Education</label>
-    <div class="form-group" id="edus">
-      <div>
-          <input type="text" class="field form-control" id="edu" name="coach[educations][]">
-          <p class="after-input">Name of educational institution, specialty, degree</p>
-      </div>
+    <div class="form-group">
+        <%= f.label 'Education', class: "labels" %>
+        <%= f.text_field :education, class: "field form-control" %>
+        <p class="after-input">Name of educational institution, specialty, degree</p>
     </div>
     <div class="add-block" onclick="repeat_block('edus')">
         <span><i class="bi bi-plus-circle"></i></span>
         <label>Add another</label>
     </div>
     <br>
-    <label for="exp" class="labels">Work experience</label>
-    <div class="form-group" id="exps">
-      <div>
-          <input type="text" class="field form-control" id="exp" name="coach[experiences][]">
-          <p class="after-input">Position, company, work experience</p>
-      </div>
+
+    <div class="form-group">
+        <%= f.label 'Work experience', class: "labels" %>
+        <%= f.text_field :experience, class: "field form-control" %>
+        <p class="after-input">Position, company, work experience</p>
     </div>
     <div class="add-block" onclick="repeat_block('exps')">
         <span><i class="bi bi-plus-circle"></i></span>
         <label>Add another</label>
     </div>
-
     <br>
 
-    <label for="cert" class="labels">Licenses and certificates</label>
-    <div class="form-group" id="certs">
-      <div>
-          <input type="text" class="field form-control" id="cert" name="coach[certificates][]">
-          <p class="after-input">Name, issuer, date of issue</p>
-      </div>
+
+    <div class="form-group">
+        <%= f.label 'Licenses and certificates', class: "labels" %>
+        <%= f.text_field :licenses, class: "field form-control" %>
+        <p class="after-input">Name, issuer, date of issue</p>
     </div>
-    <div class="add-block" onclick="repeat_block('certs')">
+    <div class="add-block" onclick="repeat_block('licens')">
         <span><i class="bi bi-plus-circle"></i></span>
         <label>Add another</label>
     </div>
     <br>
-    <label for="net" class="labels">Link on social networks</label>
-    <div class="form-group" id="nets">
-      <div>
-        <input type="text" class="field form-control" id="net" name="coach[networks][]">
-        <p class="after-input">Link on social networks</p>
-      </div>
+
+
+    <div class="form-group" id="networks-block">
+        <label for="social_network" class="labels">Link on social networks</label>
+        <%= f.label 'Social Network', class: "labels" %>
+        <%= f.text_field :socials, class: "field form-control" %>
+        <p class="after-input">E.g., facebook, linkedin, etc.</p>
     </div>
-    <div class="add-block" onclick="repeat_block('nets')">
+    
+    <div class="add-block" onclick="repeat_block('soc')">
         <span><i class="bi bi-plus-circle"></i></span>
         <label>Add another</label>
     </div>
     <br>
-    <script type="text/javascript" charset="utf-8">
-        function repeat_block(block_id){
-            let block = document.getElementById(block_id)
-            let child = block.children[0]
-            const div = child.cloneNode(true)
-            block.appendChild(div)
+    <script type="text/javascript">
+        function addInput() {
+        let block = document.getElementById('networks-block')
+        let input = document.createElement("input")
+        let p = document.createElement("p")
+        let text = document.createTextNode("E.g., facebook, linkedin, etc.")
+        input.classList.add("field", "form-control")
+        input.name = "coach[socials][]"
+        p.classList.add("after-input", "marge_text")
+        block.appendChild(input)
+        block.appendChild(p)
+        p.appendChild(text)
         }
     </script>
+
     <%= f.submit 'GET STARTED', class: "btn btn-sing-up marge-top"%>
     <% end %>
 </div>

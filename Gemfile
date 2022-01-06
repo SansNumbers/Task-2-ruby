@@ -13,8 +13,7 @@ gem 'rubocop'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '>= 1.2'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 

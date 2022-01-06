@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   # user contoller
   get '/user/:id', to: 'user#show', as: 'user_page'
-  # get '/coach/:id', to: 'coach#show', as: 'coach_page'
+  get '/coach/:id', to: 'coach#show', as: 'coach_page'
 
   # # reset password contoller
   get '/reset_password/index', to: 'reset_password_user#index'
