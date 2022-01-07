@@ -76,8 +76,14 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
   end
 
   create_table "notifications", force: :cascade do |t|
+    t.text "body"
+    t.boolean "status"
+    t.bigint "user_id"
+    t.bigint "coach_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["coach_id"], name: "index_notifications_on_coach_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "problems", force: :cascade do |t|
@@ -161,5 +167,7 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "notifications", "coaches"
+  add_foreign_key "notifications", "users"
   add_foreign_key "steps", "techniques"
 end

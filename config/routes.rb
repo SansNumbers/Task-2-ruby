@@ -34,15 +34,26 @@ Rails.application.routes.draw do
   # CONTROLLERS
   # user
   get '/user/:id', to: 'user#show', as: 'user_page'
-
   get '/user/:id/update', to: 'user#edit', as: 'update_user_profile'
   patch '/user/:id/update', to: 'user#update'
   get '/user/:id/password_edit', to: 'user#password_update', as: 'password_change_user'
   patch '/user/:id/password_edit', to: 'user#password_user_update'
 
+  get '/user/:id/dashboard', to: 'user#dashboard', as: 'user_dashboard_page'
+  get '/user/:id/coaches', to: 'user#coaches_page', as: 'user_coahes_page'
+
+  get '/user/:id/coaches/invitation/:coach_id', to: 'user#new', as: 'invitation'
+  post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invintation'
+  delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
+  delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
+  get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#user_technique_detail', as: 'user_technique_detail'
+  patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
+  get '/user/:id/my_techniques', to: 'user#my_techniques', as: 'user_techniques_page'
+  get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#finish', as: 'user_rate_window'
+  post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
+
   # coach
   get '/coach/:id', to: 'coach#show', as: 'coach_page'
-
   get '/coach/:id/update', to: 'coach#edit', as: 'update_coach_profile'
   patch '/coach/:id/update', to: 'coach#update'
   get '/coach/:id/password_edit', to: 'coach#password_update', as: 'password_change_coach'

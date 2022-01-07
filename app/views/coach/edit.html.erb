@@ -62,7 +62,7 @@
     <label class="labels" for="tags">Areas of expertise</label>
     <select class="form-control select2-multi" name="coach[problems][]" multiple="multiple">
       <% @problems.each do |data|%>
-          <option value="<%= data[:name]%>"><%= data[:name] %></option>
+          <option value="<%= data[:title]%>"><%= data[:title] %></option>
       <% end %>
     </select>
   </div>

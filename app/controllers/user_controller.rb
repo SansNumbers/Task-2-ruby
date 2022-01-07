@@ -39,6 +39,14 @@ class UserController < ApplicationController
     end
   end
 
+  def dashboard
+    @user = User.find(session[:user_id])
+    @problems = @user.problems
+    @notifications = @user.notifications
+    @invite = Invitation.find_by(user_id: @user.id)
+    @recommendations = Recommendation.where(user_id: @user.id).order(:status)
+  end
+
   private
 
   def updated_params

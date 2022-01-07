@@ -57,11 +57,14 @@
       </label>
   </div>
   <br>
+
+  <!--fix here-->
+  
   <div class="form-group">
     <label class="labels" for="tags">What problem would you like to solve?</label>
-    <select class="form-control select2-multi" name="user[problems][]" multiple="multiple">
+    <select class="form-control select2-multi" name="user[problem][]" multiple="multiple">
       <% @problems.each do |data|%>
-          <option value="<%= data[:name]%>"><%= data[:name] %></option>
+          <option value="<%= data[:title]%>"><%= data[:title] %></option>
       <% end %>
     </select>
   </div>
