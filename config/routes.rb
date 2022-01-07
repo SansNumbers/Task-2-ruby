@@ -19,26 +19,26 @@ Rails.application.routes.draw do
   get 'sign_in_user', to: 'sign_in_user#index'
   post '/sign_in_user', to: 'sign_in_user#create'
   get '/sign_in_user', to: 'sign_in_user#new'
-  # delete 'logout', to: 'sign_in_user#destroy'
+  delete 'logout', to: 'sign_in_user#logout', as: 'logout_user'
 
   # coach
-  get '/sign_in/coach', to: 'sign_in_coach#new'
-  post '/sign_in/coach', to: 'sign_in_coach#create'
-  # delete 'logout', to: 'authorization_coach#destroy', as: 'logout_coach'
+  get '/sign_in_coach', to: 'sign_in_coach#index'
+  post '/sign_in_coach', to: 'sign_in_coach#create'
+  delete 'logout', to: 'sign_in_coach#logout', as: 'logout_coach'
 
   # user contoller
   get '/user/:id', to: 'user#show', as: 'user_page'
   get '/coach/:id', to: 'coach#show', as: 'coach_page'
 
   # # reset password contoller
-  get '/reset_password/index', to: 'reset_password_user#index'
-  post '/reset_password/index', to: 'reset_password_user#create'
+  get '/reset_password', to: 'reset_password_user#index'
+  post '/reset_password', to: 'reset_password_user#create'
   get '/reset_password/edit', to: 'reset_password_user#edit'
   patch '/reset_password/edit', to: 'reset_password_user#update'
 
   # # reset password coach controller
-  # get '/reset_password_coach/new', to: "reset_password_coach#new"
-  # post '/reset_password_coach/new', to: "reset_password_coach#create"
-  # get '/reset_password_coach/edit', to: "reset_password_coach#edit"
-  # patch '/reset_password_coach/edit', to: "reset_password_coach#update"
+  get '/reset_password_coach', to: 'reset_password_coach#new'
+  post '/reset_password_coach', to: 'reset_password_coach#create'
+  get '/reset_password_coach/edit', to: 'reset_password_coach#edit'
+  patch '/reset_password_coach/edit', to: 'reset_password_coach#update'
 end

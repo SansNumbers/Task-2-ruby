@@ -18,10 +18,6 @@ class SignUpCoachController < ApplicationController
     @problems = Problem.all
     @coach = Coach.find_signed!(params[:token], purpose: 'sign_up_coach_verify')
     session[:coach_id] = @coach.id
-
-    puts '-------'
-    puts session[:coach_id]
-    puts '-------'
   rescue ActiveSupport::MessageVerifier::InvalidSignature
     redirect_to sign_up_coach_verification_path, alert: 'Your token has expired. Please try again.'
   end

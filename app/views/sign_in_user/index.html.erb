@@ -1,3 +1,12 @@
+<nav class="navbar navbar-expand-lg nav_background fixed-top">
+    <div class="container-fluid pad">
+    <a class="navbar-brand logo logo-button" href="#">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    </div>
+</nav>
+
 <div class="container">
     <h4 class="sign-in-title">Sign into your account</h4>
     <div class="sign_in">
@@ -35,7 +44,8 @@
         <label class="form-check-label font" for="flexCheckDefault"> Remember me</label>
         </div>
         <div class="forgot-password-block">
-        <%# <strong><%= link_to 'Forgot password?', reset_password_new_path, class: "forgot-password-link"</strong> %>
+        <strong><%= link_to 'Forgot password?', reset_password_path, class: "forgot-password-link"%></strong>
+
         </div>
     </div>
 
@@ -46,18 +56,10 @@
         or Sign in with
         </div>
         <div class="badge-with">
-
-          <%= button_to '/auth/google_oauth2', class: "icon-color" do %>
-              <i class="bi bi-facebook"></i>
-              <i class="bi bi-google"></i>
-          <% end %>
-
+        <i class="bi bi-facebook"></i>
+        <i class="bi bi-google"></i>
         </div>
     </div>
     <% end %>
-
+    
 </div>
-<br>
-<br>
-<br><br>
-<br>

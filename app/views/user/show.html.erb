@@ -1,18 +1,38 @@
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  
-  <div class="content-techniques">
+<nav class="navbar navbar-expand-lg nav_background fixed-top">
+  <div class="container-fluid pad">
+    <a class="navbar-brand logo logo-button" href="#">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link nav-link-style" aria-current="page" href="#content-two">Dashboard</a>
+        <a class="nav-link nav-link-style" href="#content-techniques">My techniques</a>
+        <a class="nav-link nav-link-style" href="#content-coaches">Coaches</a>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="envelope-block"><i class="bi bi-envelope"></i></div>
 
-    <%= @user.name %>
-
+      <div class="bell-block dropdown">
+        <i class="bi bi-bell" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Edit Personal Information</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Change Password</a></li>
+        </ul>
+      </div>
+      <div class="me-3">
+          <img src="<%= asset_path('sydney-sims-fZ2hMpHIrbI-unsplash.jpg') %>" class="rounded-circle size-image">
+      </div>
+      <%= button_to 'LOG OUT', logout_user_path, method: :delete, class: "btn btn-sing-in" %>
+    </div>
   </div>
-  
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+</nav>
+
+
+<div class="content-techniques">
+
+  <%= @user.name %>
+
+</div>

@@ -13,14 +13,14 @@ class ResetPasswordUserController < ApplicationController
 
   def edit
     @user = User.find_signed!(params[:token], purpose: 'reset_password_user_verify')
+    session[:user_id] = @user.id
   rescue ActiveSupport::MessageVerifier::InvalidSignature
-    redirect_to sign_in_user_path, alert: 'Your token has expired. Please try again.'
+    redirect_to reset_password_edit_path, alert: 'Your token has expired. Please try again.'
   end
 
   def update
-    @user = User.find_signed!(params[:token], purpose: 'reset_password_user_verify')
-
-    if @user.update(user_password_params)
+    @user = User.find(session[:user_id])
+    if @user.update(updated_params)
       redirect_to sign_in_user_path
     else
       render :edit
@@ -35,7 +35,7 @@ class ResetPasswordUserController < ApplicationController
 
   private
 
-  def user_password_params
+  def updated_params
     params.require(:user).permit(:password, :password_confirmation)
   end
 end
