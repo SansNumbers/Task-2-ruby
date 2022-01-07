@@ -1,35 +1,38 @@
+<%= stylesheet_link_tag 'coach.css' %>
+
 <nav class="navbar navbar-expand-lg nav_background fixed-top">
   <div class="container-fluid pad">
     <a class="navbar-brand logo logo-button" href="#">Logo</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link nav-link-style" aria-current="page" href="#content-two">Dashboard</a>
-        <a class="nav-link nav-link-style" href="#content-techniques">My users</a>
-        <a class="nav-link nav-link-style" href="#content-coaches">Library</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link nav-link-style" aria-current="page" href="#content-two">Dashboard</a>
+          <a class="nav-link nav-link-style" href="#content-techniques">My techniques</a>
+          <a class="nav-link nav-link-style" href="#content-coaches">Coaches</a>
+        </div>
       </div>
-    </div>
-    <div class="d-flex">
-      <div class="envelope-block"><i class="bi bi-envelope"></i></div>
+
+      <div class="d-flex">
+        <div class="envelope-block"><i class="bi bi-envelope"></i>
+      </div>
 
       <div class="bell-block">
         <i class="bi bi-bell" ></i>
-
       </div>
+
       <div class="me-3 dropdown">
         <% if @coach.avatar.attached? %>
           <img src="<%= url_for(@coach.avatar) %>" class= "rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
         <% else %>
-          <img src="<%= asset_path('sydney-sims-fZ2hMpHIrbI-unsplash.jpg') %>" class="rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="<%= asset_path('camera.png') %>" class="rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
         <% end %>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Edit Personal Information</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Change Password</a></li>
-        </ul>
+          <%= link_to 'Edit Personal Information', update_coach_profile_path %>
+          <%= link_to 'Change Password', password_change_coach_path %>
       </div>
+
       <%= button_to 'LOG OUT', logout_coach_path, method: :delete, class: "btn btn-sing-in" %>
     </div>
   </div>
@@ -37,7 +40,6 @@
 
 <div class="content-techniques">
 
-  <%= @coach.name %>
-
+  <%= content_for?(:content) ? yield(:content) : yield %>
 
 </div>
