@@ -70,8 +70,8 @@ ActiveRecord::Schema.define(version: 2022_01_08_225557) do
   end
 
   create_table "coaches_problems", id: false, force: :cascade do |t|
-    t.bigint "problem_id"
     t.bigint "coach_id"
+    t.bigint "problem_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["coach_id"], name: "index_coaches_problems_on_coach_id"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(version: 2022_01_08_225557) do
   end
 
   create_table "problems_techniques", id: false, force: :cascade do |t|
-    t.bigint "problem_id"
     t.bigint "technique_id"
+    t.bigint "problem_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["problem_id"], name: "index_problems_techniques_on_problem_id"
@@ -105,8 +105,8 @@ ActiveRecord::Schema.define(version: 2022_01_08_225557) do
   end
 
   create_table "problems_users", id: false, force: :cascade do |t|
-    t.bigint "problem_id"
     t.bigint "user_id"
+    t.bigint "problem_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["problem_id"], name: "index_problems_users_on_problem_id"
@@ -187,12 +187,6 @@ ActiveRecord::Schema.define(version: 2022_01_08_225557) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "coach_notifications", "coaches"
   add_foreign_key "coach_notifications", "users"
-  add_foreign_key "coaches_problems", "coaches"
-  add_foreign_key "coaches_problems", "problems"
-  add_foreign_key "problems_techniques", "problems"
-  add_foreign_key "problems_techniques", "techniques"
-  add_foreign_key "problems_users", "problems"
-  add_foreign_key "problems_users", "users"
   add_foreign_key "steps", "techniques"
   add_foreign_key "user_notifications", "coaches"
   add_foreign_key "user_notifications", "users"
