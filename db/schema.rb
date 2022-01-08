@@ -43,13 +43,6 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "coach_problem", id: false, force: :cascade do |t|
-    t.bigint "coach_id"
-    t.bigint "problem_id"
-    t.index ["coach_id"], name: "index_coach_problem_on_coach_id"
-    t.index ["problem_id"], name: "index_coach_problem_on_problem_id"
-  end
-
   create_table "coaches", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -63,6 +56,13 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
     t.text "socials"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "coaches_problems", id: false, force: :cascade do |t|
+    t.bigint "coach_id"
+    t.bigint "problem_id"
+    t.index ["coach_id"], name: "index_coaches_problems_on_coach_id"
+    t.index ["problem_id"], name: "index_coaches_problems_on_problem_id"
   end
 
   create_table "invitations", force: :cascade do |t|

@@ -47,6 +47,20 @@ class UserController < ApplicationController
     @recommendations = Recommendation.where(user_id: @user.id).order(:status)
   end
 
+  def coaches_page
+    @user = User.find(session[:user_id])
+    @coahes = Coach.all
+    @problems = Problem.all
+    @invite = Invitation.find_by(user_id: @user.id)
+  end
+
+  def techniques
+    @user = User.find(session[:user_id])
+    @recommendations = Recommendation.where(user_id: @user.id)
+    @invite = Invitation.find_by(user_id: @user.id)
+  end
+
+
   private
 
   def updated_params

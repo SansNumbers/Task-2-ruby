@@ -10,4 +10,3 @@ class CreateNotifications < ActiveRecord::Migration[6.1]
     end
   end
 end
-Reddmon￼
