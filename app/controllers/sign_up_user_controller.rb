@@ -23,11 +23,15 @@ class SignUpUserController < ApplicationController
   end
 
   def update
-    @user = User.find(session[:user_id])
+    @user = User.find_by(id: session[:user_id]) if session[:user_id]
     @problems = Problem.all
     if @user.update(updated_params)
-      params[:user][:problems]&.each do |problem|
-        @user.problems << Problem.find_by(title: problem)
+      if params[:user][:problems]
+        params[:user][:problems].each do |problem|
+          @problems.each do |data|
+            @user.problems << data if problem == data[:title]
+          end
+        end
       end
       redirect_to user_page_path(@user.id)
     else
@@ -48,6 +52,6 @@ class SignUpUserController < ApplicationController
   end
 
   def updated_params
-    params.require(:user).permit(:avatar, :age, :gender, :problems)
+    params.require(:user).permit(:avatar, :age, :gender)
   end
 end

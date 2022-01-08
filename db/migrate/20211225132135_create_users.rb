@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.integer :age
       t.integer :gender
       t.text :about
+      t.references :coach, null: true, foreign_key: true
 
       t.timestamps
     end
