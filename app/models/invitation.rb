@@ -1,4 +1,5 @@
 class Invitation < ApplicationRecord
-    belongs_to :coach
-    belongs_to :user
+  has_and_belongs_to_many :users
+  has_and_belongs_to_many :coaches
+  has_and_belongs_to_many :techniques
 end

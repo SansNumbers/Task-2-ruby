@@ -24,6 +24,7 @@ class SignUpUserController < ApplicationController
 
   def update
     @user = User.find(session[:user_id])
+    @problems = Problem.all
     if @user.update(updated_params)
       params[:user][:problems]&.each do |problem|
         @user.problems << Problem.find_by(title: problem)
@@ -47,6 +48,6 @@ class SignUpUserController < ApplicationController
   end
 
   def updated_params
-    params.require(:user).permit(:avatar, :age, :gender)
+    params.require(:user).permit(:avatar, :age, :gender, :problems)
   end
 end

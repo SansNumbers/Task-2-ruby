@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   ###############################################################
   # CONTROLLERS
   # user
-  get '/user/:id', to: 'user#show', as: 'user_page'
+  get '/user/:id', to: 'user#dashboard', as: 'user_page'
   get '/user/:id/update', to: 'user#edit', as: 'update_user_profile'
   patch '/user/:id/update', to: 'user#update'
   get '/user/:id/password_edit', to: 'user#password_update', as: 'password_change_user'
@@ -47,10 +47,13 @@ Rails.application.routes.draw do
   post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invintation'
   delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
   delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
-  get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#user_technique_detail', as: 'user_technique_detail'
-  patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
-  get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#finish', as: 'user_rate_window'
-  post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
+
+  # get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#user_technique_detail', as: 'user_technique_detail'
+  # patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
+  # get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#finish', as: 'user_rate_window'
+
+  # post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
+  # patch '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
 
   # coach
   get '/coach/:id', to: 'coach#show', as: 'coach_page'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_06_214943) do
+ActiveRecord::Schema.define(version: 2022_01_08_194225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "coach_notifications", force: :cascade do |t|
+    t.text "body"
+    t.boolean "status"
+    t.bigint "coach_id", null: false
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coach_id"], name: "index_coach_notifications_on_coach_id"
+    t.index ["user_id"], name: "index_coach_notifications_on_user_id"
   end
 
   create_table "coaches", force: :cascade do |t|
@@ -75,21 +86,24 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
     t.index ["user_id"], name: "index_invitations_on_user_id"
   end
 
-  create_table "notifications", force: :cascade do |t|
-    t.text "body"
-    t.boolean "status"
-    t.bigint "user_id"
-    t.bigint "coach_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["coach_id"], name: "index_notifications_on_coach_id"
-    t.index ["user_id"], name: "index_notifications_on_user_id"
-  end
-
   create_table "problems", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "problems_techniques", id: false, force: :cascade do |t|
+    t.bigint "technique_id"
+    t.bigint "problem_id"
+    t.index ["problem_id"], name: "index_problems_techniques_on_problem_id"
+    t.index ["technique_id"], name: "index_problems_techniques_on_technique_id"
+  end
+
+  create_table "problems_users", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "problem_id"
+    t.index ["problem_id"], name: "index_problems_users_on_problem_id"
+    t.index ["user_id"], name: "index_problems_users_on_user_id"
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -128,13 +142,6 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
     t.index ["technique_id"], name: "index_steps_on_technique_id"
   end
 
-  create_table "technique_problem", id: false, force: :cascade do |t|
-    t.bigint "technique_id"
-    t.bigint "problem_id"
-    t.index ["problem_id"], name: "index_technique_problem_on_problem_id"
-    t.index ["technique_id"], name: "index_technique_problem_on_technique_id"
-  end
-
   create_table "techniques", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -147,11 +154,15 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "user_problem", id: false, force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "problem_id"
-    t.index ["problem_id"], name: "index_user_problem_on_problem_id"
-    t.index ["user_id"], name: "index_user_problem_on_user_id"
+  create_table "user_notifications", force: :cascade do |t|
+    t.text "body"
+    t.boolean "status"
+    t.bigint "coach_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coach_id"], name: "index_user_notifications_on_coach_id"
+    t.index ["user_id"], name: "index_user_notifications_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -167,7 +178,9 @@ ActiveRecord::Schema.define(version: 2022_01_06_214943) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "notifications", "coaches"
-  add_foreign_key "notifications", "users"
+  add_foreign_key "coach_notifications", "coaches"
+  add_foreign_key "coach_notifications", "users"
   add_foreign_key "steps", "techniques"
+  add_foreign_key "user_notifications", "coaches"
+  add_foreign_key "user_notifications", "users"
 end

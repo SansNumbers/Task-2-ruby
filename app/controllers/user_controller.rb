@@ -1,8 +1,12 @@
 class UserController < ApplicationController
   before_action :check_user!
 
-  def show
-    @user = User.find_by_id(session[:user_id])
+  def dashboard
+    @user = User.find(session[:user_id])
+    @problems = @user.problems
+    @notifications = UserNotification.where(user_id: @user.id)
+    @invite = Invitation.find_by(user_id: @user.id)
+    @recommendations = Recommendation.where(user_id: @user.id).order(:status)
   end
 
   def edit
@@ -39,14 +43,6 @@ class UserController < ApplicationController
     end
   end
 
-  def dashboard
-    @user = User.find(session[:user_id])
-    @problems = @user.problems
-    @notifications = @user.notifications
-    @invite = Invitation.find_by(user_id: @user.id)
-    @recommendations = Recommendation.where(user_id: @user.id).order(:status)
-  end
-
   def coaches_page
     @user = User.find(session[:user_id])
     @coahes = Coach.all
@@ -59,7 +55,6 @@ class UserController < ApplicationController
     @recommendations = Recommendation.where(user_id: @user.id)
     @invite = Invitation.find_by(user_id: @user.id)
   end
-
 
   private
 
