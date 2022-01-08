@@ -307,7 +307,7 @@
               </div>
               <div class="image-avatar">
                 <% if @invite.coach.avatar.attached? %>
-                  <img src="<%= url_for(@invitation.coach.avatar) %>" class= "c-u-a rounded-circle">
+                  <img src="<%= url_for(@invite.coach.avatar) %>" class= "c-u-a rounded-circle">
                 <% else %>
                   <img src="<%= asset_path('generic-user-icon-10.png') %>" class="c-u-a rounded-circle">
                 <% end %>

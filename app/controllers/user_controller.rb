@@ -9,22 +9,6 @@ class UserController < ApplicationController
     @recommendations = Recommendation.where(user_id: @user.id).order(:status)
   end
 
-  def new
-    @coach = Coach.find_by(id: params[:coach_id])
-    @invite = Invitation.find_by(user_id: User.find_by_id(session[:user_id]))
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
-  def finish
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
   def edit
     @user = User.find_by_id(session[:user_id])
     @problems = Problem.all
@@ -91,13 +75,6 @@ class UserController < ApplicationController
     end
   end
 
-  def restart
-    @user = User.find(session[:user_id])
-    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id]).update(step: 0,
-                                                                                                            status: 0)
-    redirect_to user_technique_detail_path(technique_id: params[:technique_id], step_id: 0)
-  end
-
   def send_invintation
     @user = User.find(session[:user_id])
     @coach = Coach.find_by_id(params[:coach_id])
@@ -114,31 +91,6 @@ class UserController < ApplicationController
     end
   end
 
-  def cancel_invite
-    @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}",
-                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
-    @invite.destroy
-    redirect_to user_dashboard_page_path(Current.user.id)
-  end
-
-  def modal_ask_form
-    @coach = Invitation.find_by(user_id: User.find(session[:user_id]), status: 1).coach
-    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
-  def end_cooperation
-    @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}",
-                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
-    @invite.destroy
-    redirect_to user_dashboard_page_path(Current.user.id)
-  end
-
   private
 
   def search_coach(param)
@@ -150,26 +102,26 @@ class UserController < ApplicationController
 
     if filter_params
       @coaches = Problem.find_by(name: filter_params[:problems]).coaches if filter_params[:problems].present?
-      
+
       filter_params[:gender]&.each do |gender|
         @coaches = @coaches.where('gender = ?', 0) if gender == 'male'
         @coaches = @coaches.where('gender = ?', 1) if gender == 'female'
         @coaches = @coaches.where(nil) if gender == 'all'
       end
-      
+
       filter_params[:gender]&.each do |gender|
         @coaches = @coaches.where('gender = ?', 0) if gender == 'male'
         @coaches = @coaches.where('gender = ?', 1) if gender == 'female'
         @coaches = @coaches.where(nil) if gender == 'all'
       end
-      
+
       filter_params[:age]&.each do |age|
         @coaches = @coaches.where("age <= '25'") if age == '25'
         @coaches = @coaches.where("age > '25' and age < '35'") if age == '25-35'
         @coaches = @coaches.where("age > '35' and age < '45'") if age == '35-45'
         @coaches = @coaches.where("age >= '45'") if age == '45'
       end
-    
+
     else
       @coaches = Coach.all
     end
