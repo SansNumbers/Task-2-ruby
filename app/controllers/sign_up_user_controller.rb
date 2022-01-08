@@ -24,12 +24,12 @@ class SignUpUserController < ApplicationController
 
   def update
     @user = User.find_by(id: session[:user_id]) if session[:user_id]
-    @problems = Problem.all
+    @problem = Problem.all
     if @user.update(updated_params)
-      if params[:user][:problems]
-        params[:user][:problems].each do |problem|
-          @problems.each do |data|
-            @user.problems << data if problem == data[:title]
+      if params[:user][:problem]
+        params[:user][:problem].each do |problem|
+          @problem.each do |data|
+            @user.problem << data if problem == data[:title]
           end
         end
       end
