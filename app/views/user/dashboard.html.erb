@@ -99,7 +99,7 @@
               <% if recommendation.technique.problems %>
                 <div class="tags-div-absolute">
                   <% recommendation.technique.problems.each do |problem|%>
-                    <span class="tags-in-image "><%= problem.name%></span>
+                    <span class="tags-in-image "><%= problem.title%></span>
                   <% end %>
                 </div>
               <% end %>
@@ -166,9 +166,9 @@
 
           </div>
           <p class="tages-info">Problems</p>
-          <% if @problem %>
-            <% @problem.each do |p| %>
-              <span class="tags"><%= p[:title] %></span>
+          <% if @problems %>
+            <% @problems.each do |problem| %>
+              <span class="tags"><%= problem[:title] %></span>
             <% end %>
           <% end %>
         </div>

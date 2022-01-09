@@ -60,8 +60,8 @@
                 <div class="body">
                   <div class="small-card">
                     <div class="image-avatar-small">
-                      <% if value.user.avatar_user.attached? %>
-                        <img src="<%= url_for(value.user.avatar_user) %>" class="rounded-circle avatar-coach-users">
+                      <% if value.user.avatar.attached? %>
+                        <img src="<%= url_for(value.user.avatar) %>" class="rounded-circle avatar-coach-users">
                       <% else %>
                         <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle avatar-coach-users">
                       <% end %>
@@ -78,7 +78,7 @@
                     <div class="about-user">
                       <p class="tages-info">Problems</p>
                       <% value.user.problems.each do |problem|%>
-                        <span class="tags"><%= problem.name%></span>
+                        <span class="tags"><%= problem.title%></span>
                       <% end %>
                       <p class="tages-info">Techniques in process</p>
                       <% @user_data[value.user.name].each do |value|%>
@@ -99,7 +99,7 @@
           <% end %>
         <% end %>
       <% else %>
-        <p>You don't confirm any invitayions!</p>
+        <p>You don't confirm any invitations!</p>
       <% end %>
 
     </div>
@@ -134,7 +134,7 @@
               <% if recommendation.technique.problems %>
                 <div class="tags-div-absolute">
                   <% recommendation.technique.problems.each do |problem|%>
-                    <span class="tags-in-image "><%= problem.name%></span>
+                    <span class="tags-in-image "><%= problem.title%></span>
                   <% end %>
                 </div>
               <% end %>
@@ -193,7 +193,7 @@
           <p class="tages-info">Areas of Expertise</p>
           <% if @problems %>
             <% @problems.each do |p| %>
-              <span class="tags"><%= p[:name] %></span>
+              <span class="tags"><%= p[:title] %></span>
             <% end %>
           <% end %>
         </div>

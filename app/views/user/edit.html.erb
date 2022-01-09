@@ -1,8 +1,11 @@
 <% content_for :content do %>
+<br>
+<br>
 
 <h6>
   <%= link_to "Cancel", user_page_path(@user.id), class: "bi bi-chevron-left link-back" %>
 </h6>
+
 <div class="personal-block-h">
   <h5 class="personal-info">Personal information</h5>
 </div>
@@ -62,7 +65,7 @@
   
   <div class="form-group">
     <label class="labels" for="tags">What problem would you like to solve?</label>
-    <select class="form-control select2-multi" name="user[problem][]" multiple="multiple">
+    <select class="form-control select2-multi" name="user[problems][]" multiple="multiple">
       <% @problems.each do |data|%>
           <option value="<%= data[:title]%>"><%= data[:title] %></option>
       <% end %>
