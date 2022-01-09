@@ -78,7 +78,7 @@
                     <div class="about-user">
                       <p class="tages-info">Problems</p>
                       <% value.user.problems.each do |problem|%>
-                        <span class="tags"><%= problem.title%></span>
+                        <span class="tags"><%= problem.title %></span>
                       <% end %>
                       <p class="tages-info">Techniques in process</p>
                       <% @user_data[value.user.name].each do |value|%>
@@ -134,7 +134,7 @@
               <% if recommendation.technique.problems %>
                 <div class="tags-div-absolute">
                   <% recommendation.technique.problems.each do |problem|%>
-                    <span class="tags-in-image "><%= problem.title%></span>
+                    <span class="tags-in-image "><%= problem.title %></span>
                   <% end %>
                 </div>
               <% end %>

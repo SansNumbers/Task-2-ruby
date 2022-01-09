@@ -51,9 +51,9 @@ class UserController < ApplicationController
     @problems = Problem.all
     @invite = Invitation.find_by(user_id: @user.id)
     if !params[:search].nil?
-      search_coach(params[:search])
+      search(params[:search])
     else
-      filter_coach(params[:filter])
+      filter(params[:filter])
     end
   end
 
@@ -63,15 +63,12 @@ class UserController < ApplicationController
     @invite = Invitation.find_by(user_id: @user.id)
   end
 
-  def user_technique_detail
-    @user = User.find(session[:user_id])
-    @technique = Technique.find_by_id(params[:technique_id])
-    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
-    next_step = params[:step_id].to_i
-    if @recommendation.step + 1 <= @technique.total_steps
-      @recommendation.update(step: next_step + 1, status: 1)
-      @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
-      @step = Step.find_by(number: next_step + 1)
+  def new
+    @coach = Coach.find_by(id: params[:coach_id])
+    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 
@@ -91,13 +88,33 @@ class UserController < ApplicationController
     end
   end
 
+  def technique_detail
+    @user = User.find(session[:user_id])
+    @technique = Technique.find_by_id(params[:technique_id])
+    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
+    next_step = params[:step_id].to_i
+    if @recommendation.step + 1 <= @technique.total_steps
+      @recommendation.update(step: next_step + 1, status: 1)
+      @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
+      @step = Step.find_by(number: next_step + 1)
+    end
+  end
+
+  def cancel_invite
+    @invite = Invitation.find_by_id(params[:invite_id])
+    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}",
+                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    @invite.destroy
+    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+  end
+
   private
 
-  def search_coach(param)
+  def search(param)
     @coaches = Coach.search(param)
   end
 
-  def filter_coach(filter_params)
+  def filter(filter_params)
     @coaches = Coach.where(nil)
 
     if filter_params

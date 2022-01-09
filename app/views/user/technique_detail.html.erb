@@ -46,7 +46,7 @@
                 <% if @recommendation.step == @technique.total_steps %>
                   <%= link_to 'PASSED', user_rate_window_path(step_id: @step.number),  {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window', class: "btn btn-sing-up get_down_link"}  %>
                 <% else %>
-                  <%= link_to 'PASSED', user_technique_detail_path(step_id: @step.number), class:"btn btn-sing-up" %>
+                  <%= link_to 'PASSED', technique_detail_path(step_id: @step.number), class:"btn btn-sing-up" %>
                 <% end %>
               </div>
           </div>
@@ -81,7 +81,7 @@
                 <% if @technique.problems %>
                   <div class="tags-div-absolute">
                     <% @technique.problems.each do |problem|%>
-                      <span class="tags-in-image "><%= problem.name%></span>
+                      <span class="tags-in-image "><%= problem.title %></span>
                     <% end %>
                   </div>
                 <% end %>
