@@ -56,11 +56,21 @@ Rails.application.routes.draw do
   # patch '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
 
   # coach
-  get '/coach/:id', to: 'coach#show', as: 'coach_page'
+  get '/coach/:id', to: 'coach#dashboard', as: 'coach_page'
   get '/coach/:id/update', to: 'coach#edit', as: 'update_coach_profile'
   patch '/coach/:id/update', to: 'coach#update'
   get '/coach/:id/password_edit', to: 'coach#password_update', as: 'password_change_coach'
   patch '/coach/:id/password_edit', to: 'coach#password_coach_update'
+
+  get '/coach/:id/dashboard', to: 'coach#dashboard', as: 'coach_dashboard_page'
+  get '/coach/:id/my_users', to: 'coach#coach_users', as: 'coach_users_page'
+  get '/coach/:id/library', to: 'coach#library', as: 'coach_library_page'
+
+  get '/coach/:id/library/:technique_id', to: 'coach#technique_detail', as: 'technique_detail_page'
+  get '/coach/:id/library/:technique_id/recommendation', to: 'coach#new', as: 'recommend_to_users_page'
+  post '/coach/:id/library/:technique_id/recommendation', to: 'coach#create'
+  get '/coach/:id/user/:user_id/detail', to: 'coach#user_detail', as: 'user_detail'
+
 
   ###############################################################
   # RESET PASSWORD

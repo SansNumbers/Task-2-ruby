@@ -12,7 +12,7 @@
     <% if @coach.avatar.attached? %>
       <img src="<%= url_for(@coach.avatar) %>" class= "rounded-circle" id="output">
     <% else %>Information
-      <img src="<%= asset_path('png-clipart-graphy-camera-camera-rectangle-photography.png') %>" class="rounded-circle" id="output">
+      <img src="<%= asset_path('camera.png') %>" class="rounded-circle" id="output">
     <% end %>
     <label for="avatar">
       <h4 class="upload">Upload profile photo</h4>

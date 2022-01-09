@@ -1,6 +1,27 @@
 class CoachController < ApplicationController
   before_action :check_coach!
 
+  def dashboard
+    @coach = Coach.find_by_id(session[:coach_id])
+    @problems = @coach.problems
+    @notifications = CoachNotification.where(coach_id: @coach.id)
+    @invitation = Invitation.where(coach_id: @coach.id, status: 1)
+    @recommendations = Recommendation.where(coach_id: @coach.id)
+  end
+
+  def coach_users
+    @coach = Coach.find_by_id(session[:coach_id])
+    @notifications = CoachNotification.where.not(coach_id: @coach.id, user_id: nil)
+    @count = Invitation.where(coach_id: @coach.id, status: 0).count
+    @invitation = Invitation.where(coach_id: @coach.id)
+  end
+
+  def library
+    @coach = Coach.find_by_id(session[:coach_id])
+    @problems = Problem.all
+    @techniques = Technique.all
+  end
+
   def show
     @coach = Coach.find_by_id(session[:coach_id])
   end
@@ -21,6 +42,7 @@ class CoachController < ApplicationController
       render :edit
     end
   end
+
 
   def password_update
     @coach = Coach.find(session[:coach_id])
