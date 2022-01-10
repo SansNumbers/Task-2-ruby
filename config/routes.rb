@@ -43,12 +43,12 @@ Rails.application.routes.draw do
   get '/user/:id/techniques', to: 'user#techniques', as: 'user_techniques_page'
   get '/user/:id/coaches', to: 'user#coaches_page', as: 'user_coahes_page'
 
-  get '/user/:id/coaches/invitation/:coach_id', to: "user#new", as: 'invitation'
-  post 'user/:id/coaches/invitation/:coach_id', to: "user#send_invintation"
-  
+  get '/user/:id/coaches/invitation/:coach_id', to: 'user#new', as: 'invitation'
+  post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invintation'
+
   # post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invite'
-  # delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
-  # delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
+  delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
+  delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
 
   get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#technique_detail', as: 'technique_detail'
   # patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
@@ -72,6 +72,9 @@ Rails.application.routes.draw do
   get '/coach/:id/library/:technique_id/recommendation', to: 'coach#new', as: 'recommend_to_users_page'
   post '/coach/:id/library/:technique_id/recommendation', to: 'coach#create'
   get '/coach/:id/user/:user_id/detail', to: 'coach#user_detail', as: 'user_detail'
+
+  patch 'confirm/:invite_id', to: 'coach#confirm', as: 'confirm_user_invite'
+  delete 'refuse/:invite_id', to: 'coach#refuse', as: 'refuse_user_invite'
 
   ###############################################################
   # RESET PASSWORD

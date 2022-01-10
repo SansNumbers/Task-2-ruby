@@ -52,6 +52,6 @@ class SignUpUserController < ApplicationController
   end
 
   def updated_params
-    params.require(:user).permit(:avatar, :age, :gender)
+    params.require(:user).permit(:user_avatar, :age, :gender)
   end
 end

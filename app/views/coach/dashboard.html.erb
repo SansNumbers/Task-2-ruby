@@ -51,8 +51,8 @@
     <br>
 
     <div class="row">
-      <% if @invitation %>
-        <% @invitation.each do |value| %>
+      <% if @invite %>
+        <% @invite.each do |value| %>
           <% if value.status == true %>
             <div class="col-6">
               <br>
@@ -60,8 +60,8 @@
                 <div class="body">
                   <div class="small-card">
                     <div class="image-avatar-small">
-                      <% if value.user.avatar.attached? %>
-                        <img src="<%= url_for(value.user.avatar) %>" class="rounded-circle avatar-coach-users">
+                      <% if value.user.user_avatar.attached? %>
+                        <img src="<%= url_for(value.user.user_avatar) %>" class="rounded-circle avatar-coach-users">
                       <% else %>
                         <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle avatar-coach-users">
                       <% end %>

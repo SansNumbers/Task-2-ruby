@@ -5,6 +5,7 @@ ruby '3.0.1'
 
 gem 'bcrypt'
 gem 'dotenv-rails', groups: %i[development test]
+gem 'image_processing', '>= 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'puma', '~> 5.0'
@@ -13,7 +14,8 @@ gem 'rubocop'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
-gem 'image_processing', '>= 1.2'
+
+gem 'jquery-rails'
 
 gem 'bootsnap', '>= 1.4.4', require: false
 

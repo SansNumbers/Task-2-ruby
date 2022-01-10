@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_many :recommendations
   has_many :techniques, through: :recommendations
 
-  has_one_attached :avatar
+  has_one_attached :user_avatar
 
   validates :age, presence: false
   validates :about, presence: false

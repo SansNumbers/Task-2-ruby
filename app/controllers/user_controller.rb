@@ -102,10 +102,9 @@ class UserController < ApplicationController
 
   def cancel_invite
     @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}",
-                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}", user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
     @invite.destroy
-    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+    redirect_to user_dashboard_page_path(Current.user.id)
   end
 
   private
@@ -145,7 +144,7 @@ class UserController < ApplicationController
   end
 
   def updated_params
-    params.require(:user).permit(:name, :email, :avatar, :about, :age, :gender, :problem)
+    params.require(:user).permit(:name, :email, :user_avatar, :about, :age, :gender, :problem)
   end
 
   def password_updated_params

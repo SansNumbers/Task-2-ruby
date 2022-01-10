@@ -29,8 +29,8 @@
                     <div class="body">
                       <div class="small-card">
                         <div class="image-avatar-small">
-                          <% if value.user.avatar.attached? %>
-                            <img src="<%= url_for(value.user.avatar) %>" class="rounded-circle avatar-coach-users">
+                          <% if value.user.user_avatar.attached? %>
+                            <img src="<%= url_for(value.user.user_avatar) %>" class="rounded-circle avatar-coach-users">
                           <% else %>
                             <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle avatar-coach-users">
                           <% end %>
@@ -66,15 +66,15 @@
               <% end %>
             <% end %>
           <% else %>
-            <p>You don't confirm any invitayions!</p>
+            <p>You don't confirm any invitations.</p>
           <% end %>
 
         </div>
       </div>
       <div id="div-my-users">
         <div class="row">
-          <% if @invitation %>
-            <% @invitation.each do |value| %>
+          <% if @invite %>
+            <% @invite.each do |value| %>
               <% if value.status == true %>
                 <div class="col-6">
                   <br>
@@ -82,8 +82,8 @@
                     <div class="body">
                       <div class="small-card">
                         <div class="image-avatar-small">
-                          <% if value.user.avatar_user.attached? %>
-                            <img src="<%= url_for(value.user.avatar_user) %>" class="rounded-circle avatar-coach-users">
+                          <% if value.user.user_avatar.attached? %>
+                            <img src="<%= url_for(value.user.user_avatar) %>" class="rounded-circle avatar-coach-users">
                           <% else %>
                             <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle avatar-coach-users">
                           <% end %>
@@ -119,7 +119,7 @@
               <% end %>
             <% end %>
           <% else %>
-            <p>You don't confirm any invitayions!</p>
+            <p>You don't confirm any invitations.</p>
           <% end %>
 
         </div>

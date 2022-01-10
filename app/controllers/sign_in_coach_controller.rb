@@ -5,7 +5,7 @@ class SignInCoachController < ApplicationController
     coach = Coach.find_by(email: params[:email])
     if coach.present? && coach.authenticate(params[:password])
       session[:coach_id] = coach.id
-      redirect_to coach_page_path(coach.id), notice: 'Logged in successfully'
+      redirect_to coach_page_path(coach.id), notice: 'Sign in successfull'
     else
       flash.now[:alert] = 'Invalid email or password'
       render :index
