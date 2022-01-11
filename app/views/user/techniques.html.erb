@@ -74,11 +74,11 @@
                       <li><i class="bi bi-hand-thumbs-up"></i> <%= Rating.where(technique_id: recommendation.technique.id).sum(:like)%></li>
                       <li><i class="bi bi-hand-thumbs-down"></i> <%= Rating.where(technique_id: recommendation.technique.id).sum(:dislike)%></li>
                       <% if recommendation.step == 0 %>
-                        <li class="start-button"><%= link_to 'GET STARTED', technique_detail_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
+                        <li class="start-button"><%= link_to 'GET STARTED', technique_detail_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
                       <% elsif recommendation.status == 'compeleted'%>
                         <li class="start-button"><%= link_to 'RESTART', restart_path(technique_id: recommendation.technique.id, step_id: recommendation.step), method: :patch, class:"get_down_link"%></li>
                       <% else %>
-                        <li class="start-button"><%= link_to 'CONTINUE', technique_detail_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
+                        <li class="start-button"><%= link_to 'CONTINUE', technique_detail_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
                       <% end %>
                     </ul>
                   </div>
@@ -138,7 +138,7 @@
                           <li><i class="bi bi-people"></i> <%= Recommendation.where(technique_id: recommendation.technique.id).count%></li>
                           <li><i class="bi bi-hand-thumbs-up"></i> <%= Rating.where(technique_id: recommendation.technique.id).sum(:like)%></li>
                           <li><i class="bi bi-hand-thumbs-down"></i>  <%= Rating.where(technique_id: recommendation.technique.id).sum(:dislike)%></li>
-                          <li class="start-button"><%= link_to 'GET STARTED', technique_detail_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
+                          <li class="start-button"><%= link_to 'GET STARTED', technique_detail_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
                         </ul>
                       </div>
                     </div>
@@ -196,7 +196,7 @@
                           <li><i class="bi bi-people"></i> <%= Recommendation.where(technique_id: recommendation.technique.id).count%></li>
                           <li><i class="bi bi-hand-thumbs-up"></i> <%= Rating.where(technique_id: recommendation.technique.id).sum(:like)%></li>
                           <li><i class="bi bi-hand-thumbs-down"></i>  <%= Rating.where(technique_id: recommendation.technique.id).sum(:dislike)%></li>
-                          <li class="start-button"><%= link_to 'CONTINUE', technique_detail_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
+                          <li class="start-button"><%= link_to 'CONTINUE', technique_detail_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
                         </ul>
                       </div>
                     </div>

@@ -33,7 +33,7 @@
           <% if @coach.avatar.attached? %>
             <img src="<%= url_for(@coach.avatar) %>" class= "rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
           <% else %>
-            <img src="<%= asset_path('sydney-sims-fZ2hMpHIrbI-unsplash.jpg') %>" class="rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
           <% end %>
             <%= link_to 'Edit Personal Information', update_coach_profile_path, class: "dropdown-item" %>
             <%= link_to 'Change Password', password_change_coach_path, class: "dropdown-item" %>

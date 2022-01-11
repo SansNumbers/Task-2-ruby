@@ -104,7 +104,7 @@
               <% if recommendation.technique.problems %>
                 <div class="tags-div-absolute">
                   <% recommendation.technique.problems.each do |problem|%>
-                    <span class="tags-in-image "><%= problem.name%></span>
+                    <span class="tags-in-image "><%= problem.title %></span>
                   <% end %>
                 </div>
               <% end %>
@@ -172,7 +172,7 @@
                     <div class="about-user">
                       <p class="tages-info">Problems</p>
                       <% @invitation.user.problems.each do |problem|%>
-                        <span class="tags"><%= problem.name%></span>
+                        <span class="tags"><%= problem.title %></span>
                       <% end %>
                     </div>
                   </div>
@@ -190,7 +190,7 @@
       <% @notifications.each do |data|%>
         <div class="row">
           <div class="col-2 notif-avatar-block">
-            <% if data.coach_id && data.user_id%>
+            <% if data.coach_id && data.user_id %>
               <img src="<%= url_for(@invitation.user.user_avatar) %>" class= "rounded-circle notification-avatar">
 
             <% else %>

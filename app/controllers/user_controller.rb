@@ -88,11 +88,12 @@ class UserController < ApplicationController
     end
   end
 
-  def technique_detail
+  def technique_detail_user
     @user = User.find(session[:user_id])
     @technique = Technique.find_by_id(params[:technique_id])
     @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
     next_step = params[:step_id].to_i
+
     if @recommendation.step + 1 <= @technique.total_steps
       @recommendation.update(step: next_step + 1, status: 1)
       @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
@@ -102,9 +103,54 @@ class UserController < ApplicationController
 
   def cancel_invite
     @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}", user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}",
+                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
     @invite.destroy
-    redirect_to user_dashboard_page_path(Current.user.id)
+    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+  end
+
+  def end_cooperation
+    @invite = Invitation.find_by_id(params[:invite_id])
+    UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}", user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    @invite.destroy
+    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+  end
+
+  def restart
+    @user = User.find(session[:user_id])
+    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id]).update(step: 0, status: 0)
+    redirect_to technique_detail_user_path(technique_id: params[:technique_id], step_id: 0)
+  end
+
+  def finish
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def like
+    @user = User.find(session[:user_id])
+    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id) == nil
+        Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: 0)
+        UserNotification.create(body: "You like your Technique", user_id: @user.id, status: 1)
+    end
+    recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
+    recommendation.update(status: 2)
+    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at == nil
+    redirect_to user_dashboard_page_path
+  end
+
+  def dislike
+    @user = User.find(session[:user_id])
+    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id) == nil
+        Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 0, dislike: 1)
+        UserNotification.create(body: "You like your Technique", user_id: @user.id, status: 1)
+    end
+    recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
+    recommendation.update(status: 2)
+    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at == nil
+    redirect_to user_dashboard_page_path
   end
 
   private

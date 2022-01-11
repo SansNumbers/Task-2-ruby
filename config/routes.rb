@@ -46,16 +46,16 @@ Rails.application.routes.draw do
   get '/user/:id/coaches/invitation/:coach_id', to: 'user#new', as: 'invitation'
   post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invintation'
 
-  # post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invite'
+  get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#technique_detail_user', as: 'technique_detail_user'
+
   delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
   delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
 
-  get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#technique_detail', as: 'technique_detail'
-  # patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
-  # get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#finish', as: 'user_rate_window'
+  patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
+  get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#finish', as: 'user_rate_window'
 
-  # post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
-  # patch '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
+  post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
+  patch '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
 
   # coach
   get '/coach/:id', to: 'coach#dashboard', as: 'coach_page'
@@ -69,6 +69,7 @@ Rails.application.routes.draw do
   get '/coach/:id/library', to: 'coach#library', as: 'coach_library_page'
 
   get '/coach/:id/library/:technique_id', to: 'coach#technique_detail', as: 'technique_detail_page'
+
   get '/coach/:id/library/:technique_id/recommendation', to: 'coach#new', as: 'recommend_to_users_page'
   post '/coach/:id/library/:technique_id/recommendation', to: 'coach#create'
   get '/coach/:id/user/:user_id/detail', to: 'coach#user_detail', as: 'user_detail'
