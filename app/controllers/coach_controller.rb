@@ -8,7 +8,9 @@ class CoachController < ApplicationController
     @invitation = Invitation.where(coach_id: @coach.id, status: 1)
     @recommendations = Recommendation.where(coach_id: @coach.id)
     get_techniques_in_progress(@invitation)
+    count_likes_on_techniques(@recommendations)
   end
+
 
   def coach_users
     @coach = Coach.find_by_id(session[:coach_id])
@@ -86,9 +88,10 @@ class CoachController < ApplicationController
     users_names_list = params[:users].select! { |element| element&.size.to_i > 0 }
     users_names_list.each do |user_name|
       user = User.find_by(name: user_name)
-      if Recommendation.find_by(user_id: user.id, technique_id: @technique.id) == nil
+      if Recommendation.find_by(user_id: user.id, technique_id: @technique.id).nil?
         Recommendation.create(user_id: user.id, coach_id: @coach.id, technique_id: @technique.id, status: 0, step: 0)
-        UserNotification.create(body: "Coach #{@coach.name} recommended a Technique for you", user_id: user.id, coach_id: @coach.id ,status: 1)
+        UserNotification.create(body: "Coach #{@coach.name} recommended a Technique for you", user_id: user.id,
+                                coach_id: @coach.id, status: 1)
       else
         flash[:warning] = "User #{user_name} is alraedy passed this technique!"
       end
@@ -132,6 +135,17 @@ class CoachController < ApplicationController
       end
       @user_data[data.user.name] << 'All techniques completed' if @user_data[data.user.name] == []
     end
+  end
+
+  def count_likes_on_techniques(recommendations)
+    techniques_ids = []
+    total_likes = 0
+    recommendations.each do |data|
+      techniques_ids << data.technique_id
+    end
+    techniques_ids.uniq!
+    techniques_ids.each { |id| total_likes += Rating.where(technique_id: id).sum(:like) }
+    total_likes
   end
 
   def updated_params

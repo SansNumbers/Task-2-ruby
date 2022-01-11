@@ -1,6 +1,11 @@
 <% content_for :content do %>
 <br>
 <br>
+<div id="modal-window" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content"></div>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-8">
@@ -211,8 +216,8 @@
                 </div>
                 <div class="col-1">
                   <div class="end-cooperation"><%= link_to raw("<i class=\"bi bi-three-dots-vertical get_down_link\"></i>"),
-                                    end_cooperation_coach_invite_path(@invite.id),
-                                    method: :delete %>
+                                    asking_form_path,
+                                    {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window'} %>
                   </div>
                 </div>
               </div>

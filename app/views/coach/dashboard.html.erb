@@ -51,8 +51,8 @@
     <br>
 
     <div class="row">
-      <% if @invite %>
-        <% @invite.each do |value| %>
+      <% if @invitation %>
+        <% @invitation.each do |value| %>
           <% if value.status == true %>
             <div class="col-6">
               <br>
@@ -99,7 +99,7 @@
           <% end %>
         <% end %>
       <% else %>
-        <p>You don't confirm any invitations!</p>
+        <p>You don't confirm any invitayions!</p>
       <% end %>
 
     </div>
@@ -193,7 +193,7 @@
           <p class="tages-info">Areas of Expertise</p>
           <% if @problems %>
             <% @problems.each do |p| %>
-              <span class="tags"><%= p[:title] %></span>
+              <span class="tags"><%= p[:name] %></span>
             <% end %>
           <% end %>
         </div>

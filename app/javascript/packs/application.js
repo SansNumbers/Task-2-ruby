@@ -10,6 +10,12 @@ import "channels"
 import "bootstrap"
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
+//= require popper
+//= require turbolinks
+//= require bootstrap
+//= require bootstrap-modal
+//= require_tree.
+
 require("controllers")
 Rails.start()
 Turbolinks.start()

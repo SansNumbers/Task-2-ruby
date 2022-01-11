@@ -4,10 +4,12 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 gem 'bcrypt'
+gem 'bootstrap'
 gem 'dotenv-rails', groups: %i[development test]
 gem 'image_processing', '>= 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '~> 1.2', '>= 1.2.3'
+gem 'popper_js', '~> 2.9.3'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'rubocop'

@@ -57,6 +57,8 @@ Rails.application.routes.draw do
   post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
   patch '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
 
+  get '/user/ask', to: 'user#modal_ask_form', as: 'asking_form'
+
   # coach
   get '/coach/:id', to: 'coach#dashboard', as: 'coach_page'
   get '/coach/:id/update', to: 'coach#edit', as: 'update_coach_profile'

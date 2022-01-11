@@ -92,12 +92,13 @@ class UserController < ApplicationController
     @user = User.find(session[:user_id])
     @technique = Technique.find_by_id(params[:technique_id])
     @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
+
     next_step = params[:step_id].to_i
 
-    if @recommendation.step + 1 <= @technique.total_steps
-      @recommendation.update(step: next_step + 1, status: 1)
+    if @recommendation.step <= @technique.total_steps
+      @recommendation.update(step: next_step, status: 1)
       @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
-      @step = Step.find_by(number: next_step + 1)
+      @step = Step.find_by(number: next_step)
     end
   end
 
@@ -111,14 +112,16 @@ class UserController < ApplicationController
 
   def end_cooperation
     @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}", user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}",
+                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
     @invite.destroy
     redirect_to user_dashboard_page_path(User.find(session[:user_id]))
   end
 
   def restart
     @user = User.find(session[:user_id])
-    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id]).update(step: 0, status: 0)
+    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id]).update(step: 0,
+                                                                                                            status: 0)
     redirect_to technique_detail_user_path(technique_id: params[:technique_id], step_id: 0)
   end
 
@@ -129,27 +132,36 @@ class UserController < ApplicationController
     end
   end
 
+  def modal_ask_form
+    @coach = Invitation.find_by(user_id: User.find(session[:user_id]), status: 1).coach
+    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def like
-    @user = User.find(session[:user_id])
-    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id) == nil
-        Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: 0)
-        UserNotification.create(body: "You like your Technique", user_id: @user.id, status: 1)
+    unless Rating.exists?(technique_id: params[:technique_id], user_id: @user.id)
+      Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: 0)
+      UserNotification.create(body: 'You liked your Technique', user_id: @user.id, status: 1)
     end
     recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
     recommendation.update(status: 2)
-    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at == nil
+    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
+    flash[:info] = 'You liked Technique'
     redirect_to user_dashboard_page_path
   end
 
   def dislike
-    @user = User.find(session[:user_id])
-    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id) == nil
-        Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 0, dislike: 1)
-        UserNotification.create(body: "You like your Technique", user_id: @user.id, status: 1)
+    unless Rating.exists?(technique_id: params[:technique_id], user_id: @user.id)
+      Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 0, dislike: 1)
+      UserNotification.create(body: 'You disliked your Technique', user_id: @user.id, status: 1)
     end
     recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
     recommendation.update(status: 2)
-    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at == nil
+    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
+    flash[:info] = 'You disliked Technique'
     redirect_to user_dashboard_page_path
   end
 
