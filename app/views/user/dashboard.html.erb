@@ -136,7 +136,7 @@
                 <% if recommendation.step == 0 %>
                   <li class="start-button"><%= link_to 'GET STARTED', technique_detail_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
                 <% elsif recommendation.status == 'compeleted'%>
-                  <li class="start-button"><%= link_to 'RESTART', restart_path(technique_id: recommendation.technique.id, step_id: recommendation.step), method: :patch, class:"get_down_link"%></li>
+                  <li class="start-button"><%= link_to 'RESTART', technique_restart_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), method: :patch, class:"get_down_link"%></li>
                 <% else %>
                   <li class="start-button"><%= link_to 'CONTINUE', technique_detail_user_path(technique_id: recommendation.technique.id, step_id: recommendation.step), class:"get_down_link"%></li>
                 <% end %>
@@ -216,7 +216,7 @@
                 </div>
                 <div class="col-1">
                   <div class="end-cooperation"><%= link_to raw("<i class=\"bi bi-three-dots-vertical get_down_link\"></i>"),
-                                    asking_form_path,
+                                    end_cooperation_path,
                                     {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window'} %>
                   </div>
                 </div>
@@ -230,7 +230,7 @@
                 <div class="name-user">
                   <span class="coach-name">You don't have a coach yet</span><br>
                   <div class="edit-prof">
-                    <%= link_to '', user_coahes_page_path, class: "bi bi-chevron-compact-right get_down_link" %>
+                    <%= link_to '', user_coaches_page_path, class: "bi bi-chevron-compact-right get_down_link" %>
                   </div>
                 </div>
 

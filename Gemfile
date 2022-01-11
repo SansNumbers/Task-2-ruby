@@ -9,13 +9,19 @@ gem 'dotenv-rails', groups: %i[development test]
 gem 'image_processing', '>= 1.2'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '~> 1.2', '>= 1.2.3'
+
 gem 'popper_js', '~> 2.9.3'
+
+gem 'activeadmin'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'rubocop'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
+
+gem 'bootstrap-sass', '~> 3.4.1'
+gem 'sassc-rails', '>= 2.1.0'
 
 gem 'jquery-rails'
 

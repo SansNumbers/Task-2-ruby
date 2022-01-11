@@ -28,7 +28,7 @@ class SignUpCoachController < ApplicationController
       params[:coach][:problems]&.each do |problem|
         @coach.problems << Problem.find_by(title: problem)
       end
-      redirect_to coach_page_path(@coach.id)
+      redirect_to dashboard_coach_page_path(@coach.id)
     else
       render :edit
     end

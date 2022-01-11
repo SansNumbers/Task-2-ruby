@@ -1,6 +1,7 @@
 class UserController < ApplicationController
   before_action :check_user!
 
+  ############# user update profile #############
   def dashboard
     @user = User.find(session[:user_id])
     @problems = @user.problems
@@ -21,7 +22,7 @@ class UserController < ApplicationController
         @user.problems << Problem.find_by(title: problem)
       end
       UserNotification.create(body: 'You changed your profile settings', status: 1, user_id: @user.id)
-      redirect_to user_page_path(@user.id)
+      redirect_to dashboard_user_page_path(@user.id)
     else
       render :edit
     end
@@ -36,7 +37,7 @@ class UserController < ApplicationController
     if BCrypt::Password.new(@user.password_digest) == params[:user][:old_password]
       if @user.update(password_updated_params)
         UserNotification.create(body: 'You changed your password settings', status: 1, user_id: @user.id)
-        redirect_to user_page_path(@user.id)
+        redirect_to dashboard_user_page_path(@user.id)
       else
         render :password_edit
       end
@@ -45,11 +46,20 @@ class UserController < ApplicationController
     end
   end
 
-  def coaches_page
+  ############# user navbar items #############
+  def techniques
+    @user = User.find(session[:user_id])
+    @recommendations = Recommendation.where(user_id: @user.id)
+    @invite = Invitation.find_by(user_id: @user.id)
+  end
+
+  def coaches
     @user = User.find(session[:user_id])
     @coahes = Coach.all
     @problems = Problem.all
     @invite = Invitation.find_by(user_id: @user.id)
+
+    # filtration
     if !params[:search].nil?
       search(params[:search])
     else
@@ -57,67 +67,7 @@ class UserController < ApplicationController
     end
   end
 
-  def techniques
-    @user = User.find(session[:user_id])
-    @recommendations = Recommendation.where(user_id: @user.id)
-    @invite = Invitation.find_by(user_id: @user.id)
-  end
-
-  def new
-    @coach = Coach.find_by(id: params[:coach_id])
-    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
-  def send_invintation
-    @user = User.find(session[:user_id])
-    @coach = Coach.find_by_id(params[:coach_id])
-    if Invitation.find_by(user_id: @user.id).nil?
-      Invitation.create(coach_id: @coach.id, user_id: @user.id, status: 0)
-      UserNotification.create(body: "You have sent an invitation to coach #{@coach.name}", user_id: @user.id,
-                              coach_id: @coach.id, status: 1)
-      CoachNotification.create(body: "You have received an invitation to become a coach from a user #{@user.name}",
-                               coach_id: @coach.id, user_id: @user.id, status: 1)
-      redirect_to user_dashboard_page_path, notice: 'You have sent an invitation to coach!'
-    else
-      flash[:alert] = 'First, cancel the invitation to another coach!'
-      redirect_to user_coahes_page_path
-    end
-  end
-
-  def technique_detail_user
-    @user = User.find(session[:user_id])
-    @technique = Technique.find_by_id(params[:technique_id])
-    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
-
-    next_step = params[:step_id].to_i
-
-    if @recommendation.step <= @technique.total_steps
-      @recommendation.update(step: next_step, status: 1)
-      @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
-      @step = Step.find_by(number: next_step)
-    end
-  end
-
-  def cancel_invite
-    @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}",
-                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
-    @invite.destroy
-    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
-  end
-
-  def end_cooperation
-    @invite = Invitation.find_by_id(params[:invite_id])
-    UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}",
-                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
-    @invite.destroy
-    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
-  end
-
+  ############# user dashboard items #############
   def restart
     @user = User.find(session[:user_id])
     @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id]).update(step: 0,
@@ -125,16 +75,7 @@ class UserController < ApplicationController
     redirect_to technique_detail_user_path(technique_id: params[:technique_id], step_id: 0)
   end
 
-  def finish
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
-
-  def modal_ask_form
-    @coach = Invitation.find_by(user_id: User.find(session[:user_id]), status: 1).coach
-    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
+  def rate
     respond_to do |format|
       format.html
       format.js
@@ -163,6 +104,72 @@ class UserController < ApplicationController
     recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
     flash[:info] = 'You disliked Technique'
     redirect_to user_dashboard_page_path
+  end
+
+  ############# user coaches items #############
+  def coach_info
+    @coach = Coach.find_by(id: params[:coach_id])
+    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  def send_invitation
+    @user = User.find(session[:user_id])
+    @coach = Coach.find_by_id(params[:coach_id])
+    if Invitation.find_by(user_id: @user.id).nil?
+      Invitation.create(coach_id: @coach.id, user_id: @user.id, status: 0)
+      UserNotification.create(body: "You have sent an invitation to coach #{@coach.name}", user_id: @user.id,
+                              coach_id: @coach.id, status: 1)
+      CoachNotification.create(body: "You have received an invitation to become a coach from a user #{@user.name}",
+                               coach_id: @coach.id, user_id: @user.id, status: 1)
+      redirect_to user_dashboard_page_path, notice: 'You have sent an invitation to coach!'
+    else
+      flash[:alert] = 'First, cancel the invitation to another coach!'
+      redirect_to user_coaches_page_path
+    end
+  end
+
+  def cancel_invite
+    @invite = Invitation.find_by_id(params[:invite_id])
+    UserNotification.create(body: "You have canceled an invitation to coach #{@invite.coach.name}",
+                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    @invite.destroy
+    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+  end
+
+  def end_cooperation
+    @invite = Invitation.find_by_id(params[:invite_id])
+    UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}",
+                            user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
+    @invite.destroy
+    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+  end
+
+  def technique_detail_user
+    @user = User.find(session[:user_id])
+    @technique = Technique.find_by_id(params[:technique_id])
+    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
+
+    next_step = params[:step_id].to_i
+
+    if @recommendation.step <= @technique.total_steps
+      @recommendation.update(step: next_step, status: 1)
+      @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
+      @step = Step.find_by(number: next_step)
+    end
+  end
+
+  ############# user technique items #############
+  def modal_end_cooperation
+    @coach = Invitation.find_by(user_id: User.find(session[:user_id]), status: 1).coach
+    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   private

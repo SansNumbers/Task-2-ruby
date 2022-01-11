@@ -61,7 +61,6 @@
     <div class="form-group" data-controller="password-toggle">
       <%= f.label :password, class: "labels" %>
       <%= f.password_field :password, class: "field #{'is-invalid' if invalid} unhide", autocomplete: "current-password", "data-target": "password-toggle.unhide" %>
-      <span data-action="click->password-toggle#password" class="password-field-icon-1 position far bi bi-eye-slash"></span>
       <% if invalid %>
         <div class="invalid-feedback d-block">
           <% @coach.errors.full_messages_for(:password).each do |error_message| %>
@@ -77,7 +76,6 @@
     <div class="form-group" data-controller="password-toggle">
       <%= f.label :password_confirmation, class: "labels" %>
         <%= f.password_field :password_confirmation, class: "field #{'is-invalid' if invalid} unhide", autocomplete: "current-password", "data-target": "password-toggle.unhide" %>
-        <span data-action="click->password-toggle#password" class="password-field-icon-1 position far bi bi-eye-slash"></span>
       <% if invalid %>
         <div class="invalid-feedback d-block">
           <% @coach.errors.full_messages_for(:password_confirmation).each do |error_message| %>

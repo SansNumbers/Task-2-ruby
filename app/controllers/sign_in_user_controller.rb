@@ -5,7 +5,7 @@ class SignInUserController < ApplicationController
     user = User.find_by(email: params[:email])
     if user.present? && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to user_page_path(user.id), notice: 'Sign in successfull'
+      redirect_to dashboard_user_page_path(user.id), notice: 'Sign in successfull'
     else
       flash.now[:alert] = 'Invalid email or password'
       render :index

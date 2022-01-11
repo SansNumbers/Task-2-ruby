@@ -12,9 +12,10 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 
 //= require popper
 //= require turbolinks
-//= require bootstrap
 //= require bootstrap-modal
 //= require_tree.
+//= require jquery
+//= require bootstrap-sprockets
 
 require("controllers")
 Rails.start()

@@ -33,47 +33,65 @@ Rails.application.routes.draw do
   ###############################################################
   # CONTROLLERS
   # user
-  get '/user/:id', to: 'user#dashboard', as: 'user_page'
+
+  ###############################################################
+  # user update profile
+
+  get '/user/:id', to: 'user#dashboard', as: 'dashboard_user_page'
   get '/user/:id/update', to: 'user#edit', as: 'update_user_profile'
   patch '/user/:id/update', to: 'user#update'
   get '/user/:id/password_edit', to: 'user#password_update', as: 'password_change_user'
   patch '/user/:id/password_edit', to: 'user#password_user_update'
 
+  # user navbar items
   get '/user/:id/dashboard', to: 'user#dashboard', as: 'user_dashboard_page'
   get '/user/:id/techniques', to: 'user#techniques', as: 'user_techniques_page'
-  get '/user/:id/coaches', to: 'user#coaches_page', as: 'user_coahes_page'
+  get '/user/:id/coaches', to: 'user#coaches', as: 'user_coaches_page'
 
-  get '/user/:id/coaches/invitation/:coach_id', to: 'user#new', as: 'invitation'
-  post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invintation'
-
-  get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#technique_detail_user', as: 'technique_detail_user'
-
-  delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
-  delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
-
-  patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'restart'
-  get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#finish', as: 'user_rate_window'
+  # user dashboard items
+  patch '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#restart', as: 'technique_restart_user'
+  get '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#rate', as: 'technique_rate_user'
 
   post '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
   patch '/user/:id/dashboard/:technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
 
-  get '/user/ask', to: 'user#modal_ask_form', as: 'asking_form'
+  # user coaches items
+  get '/user/:id/coaches/invitation/:coach_id', to: 'user#coach_info', as: 'invitation'
+  post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invitation'
 
+  delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
+  delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
+
+  get '/user/end', to: 'user#modal_end_cooperation', as: 'end_cooperation'
+
+  # user technique items
+  get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#technique_detail_user', as: 'technique_detail_user'
+
+  ###############################################################
   # coach
-  get '/coach/:id', to: 'coach#dashboard', as: 'coach_page'
+
+  ###############################################################
+
+  # coach update profile
   get '/coach/:id/update', to: 'coach#edit', as: 'update_coach_profile'
   patch '/coach/:id/update', to: 'coach#update'
   get '/coach/:id/password_edit', to: 'coach#password_update', as: 'password_change_coach'
   patch '/coach/:id/password_edit', to: 'coach#password_coach_update'
 
+  # coach navbar items
+  get '/coach/:id', to: 'coach#dashboard', as: 'dashboard_coach_page'
   get '/coach/:id/dashboard', to: 'coach#dashboard', as: 'coach_dashboard_page'
   get '/coach/:id/my_users', to: 'coach#coach_users', as: 'coach_users_page'
   get '/coach/:id/library', to: 'coach#library', as: 'coach_library_page'
 
-  get '/coach/:id/library/:technique_id', to: 'coach#technique_detail', as: 'technique_detail_page'
+  # coach technique items
+  get '/coach/:id/library/:technique_id', to: 'coach#technique_detail', as: 'technique_detail_coach'
 
+  # coach library items
   get '/coach/:id/library/:technique_id/recommendation', to: 'coach#new', as: 'recommend_to_users_page'
   post '/coach/:id/library/:technique_id/recommendation', to: 'coach#create'
+
+  # coach users items
   get '/coach/:id/user/:user_id/detail', to: 'coach#user_detail', as: 'user_detail'
 
   patch 'confirm/:invite_id', to: 'coach#confirm', as: 'confirm_user_invite'
