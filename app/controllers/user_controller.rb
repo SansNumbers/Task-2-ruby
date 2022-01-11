@@ -59,12 +59,12 @@ class UserController < ApplicationController
     @problems = Problem.all
     @invite = Invitation.find_by(user_id: @user.id)
 
-    # filtration
-    if !params[:search].nil?
-      search(params[:search])
-    else
-      filter(params[:filter])
-    end
+    # # filtration
+    # if !params[:search].nil?
+    #   search(params[:search])
+    # else
+    #   filter(params[:filter])
+    # end
   end
 
   ############# user dashboard items #############
@@ -174,39 +174,39 @@ class UserController < ApplicationController
 
   private
 
-  def search(param)
-    @coaches = Coach.search(param)
-  end
+  # def search(param)
+  #   @coaches = Coach.search(param)
+  # end
 
-  def filter(filter_params)
-    @coaches = Coach.where(nil)
+  # def filter(filter_params)
+  #   @coaches = Coach.where(nil)
 
-    if filter_params
-      @coaches = Problem.find_by(name: filter_params[:problems]).coaches if filter_params[:problems].present?
+  #   if filter_params
+  #     @coaches = Problem.find_by(name: filter_params[:problems]).coaches if filter_params[:problems].present?
 
-      filter_params[:gender]&.each do |gender|
-        @coaches = @coaches.where('gender = ?', 0) if gender == 'male'
-        @coaches = @coaches.where('gender = ?', 1) if gender == 'female'
-        @coaches = @coaches.where(nil) if gender == 'all'
-      end
+  #     filter_params[:gender]&.each do |gender|
+  #       @coaches = @coaches.where('gender = ?', 0) if gender == 'male'
+  #       @coaches = @coaches.where('gender = ?', 1) if gender == 'female'
+  #       @coaches = @coaches.where(nil) if gender == 'all'
+  #     end
 
-      filter_params[:gender]&.each do |gender|
-        @coaches = @coaches.where('gender = ?', 0) if gender == 'male'
-        @coaches = @coaches.where('gender = ?', 1) if gender == 'female'
-        @coaches = @coaches.where(nil) if gender == 'all'
-      end
+  #     filter_params[:gender]&.each do |gender|
+  #       @coaches = @coaches.where('gender = ?', 0) if gender == 'male'
+  #       @coaches = @coaches.where('gender = ?', 1) if gender == 'female'
+  #       @coaches = @coaches.where(nil) if gender == 'all'
+  #     end
 
-      filter_params[:age]&.each do |age|
-        @coaches = @coaches.where("age <= '25'") if age == '25'
-        @coaches = @coaches.where("age > '25' and age < '35'") if age == '25-35'
-        @coaches = @coaches.where("age > '35' and age < '45'") if age == '35-45'
-        @coaches = @coaches.where("age >= '45'") if age == '45'
-      end
+  #     filter_params[:age]&.each do |age|
+  #       @coaches = @coaches.where("age <= '25'") if age == '25'
+  #       @coaches = @coaches.where("age > '25' and age < '35'") if age == '25-35'
+  #       @coaches = @coaches.where("age > '35' and age < '45'") if age == '35-45'
+  #       @coaches = @coaches.where("age >= '45'") if age == '45'
+  #     end
 
-    else
-      @coaches = Coach.all
-    end
-  end
+  #   else
+  #     @coaches = Coach.all
+  #   end
+  # end
 
   def updated_params
     params.require(:user).permit(:name, :email, :user_avatar, :about, :age, :gender, :problem)

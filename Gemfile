@@ -13,6 +13,11 @@ gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'popper_js', '~> 2.9.3'
 
 gem 'activeadmin'
+gem 'devise'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
+
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 gem 'rubocop'

@@ -189,3 +189,7 @@ Step.create(
   number: 4,
   technique_id: 5
 )
+if Rails.env.development?
+  AdminUser.create!(email: 'admin@example.com', password: 'password',
+                    password_confirmation: 'password')
+end
