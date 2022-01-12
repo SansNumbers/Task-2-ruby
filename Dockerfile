@@ -28,6 +28,8 @@ RUN apk add --update --no-cache \
       tzdata \
       yarn
 
+RUN gem install bundler -v 2.2.30
+
 WORKDIR /app
 
 COPY Gemfile Gemfile.lock ./
