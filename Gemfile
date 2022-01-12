@@ -13,8 +13,8 @@ gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'popper_js', '~> 2.9.3'
 
 gem 'activeadmin'
-gem 'devise'
 gem 'cancancan'
+gem 'devise'
 gem 'draper'
 gem 'pundit'
 
@@ -27,6 +27,8 @@ gem 'webpacker', '~> 5.0'
 
 gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
+
+gem 'sidekiq', '~> 6.3', '>= 6.3.1'
 
 gem 'jquery-rails'
 
