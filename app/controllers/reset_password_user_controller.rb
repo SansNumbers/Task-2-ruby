@@ -19,7 +19,7 @@ class ResetPasswordUserController < ApplicationController
   end
 
   def update
-    @user = User.find(session[:user_id])
+    @user = @current_user
     if @user.update(updated_params)
       redirect_to sign_in_user_path
     else

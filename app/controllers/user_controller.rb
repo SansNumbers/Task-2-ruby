@@ -1,9 +1,9 @@
 class UserController < ApplicationController
-  before_action :check_user!
+  before_action :current_user
 
   ############# user update profile #############
   def dashboard
-    @user = User.find(session[:user_id])
+    @user = @current_user
     @problems = @user.problems
     @notifications = UserNotification.where(user_id: @user.id)
     @invite = Invitation.find_by(user_id: @user.id)
@@ -11,12 +11,12 @@ class UserController < ApplicationController
   end
 
   def edit
-    @user = User.find_by_id(session[:user_id])
+    @user = @current_user
     @problems = Problem.all
   end
 
   def update
-    @user = User.find(session[:user_id])
+    @user = @current_user
     if @user.update(updated_params)
       params[:user][:problems]&.each do |problem|
         @user.problems << Problem.find_by(title: problem)
@@ -29,11 +29,10 @@ class UserController < ApplicationController
   end
 
   def password_update
-    @user = User.find(session[:user_id])
+    @user = @current_user
   end
 
   def password_user_update
-    @user = User.find(session[:user_id])
     if BCrypt::Password.new(@user.password_digest) == params[:user][:old_password]
       if @user.update(password_updated_params)
         UserNotification.create(body: 'You changed your password settings', status: 1, user_id: @user.id)
@@ -48,13 +47,13 @@ class UserController < ApplicationController
 
   ############# user navbar items #############
   def techniques
-    @user = User.find(session[:user_id])
+    @user = @current_user
     @recommendations = Recommendation.where(user_id: @user.id)
     @invite = Invitation.find_by(user_id: @user.id)
   end
 
   def coaches
-    @user = User.find(session[:user_id])
+    @user = @current_user
     @coahes = Coach.all
     @problems = Problem.all
     @invite = Invitation.find_by(user_id: @user.id)
@@ -69,7 +68,7 @@ class UserController < ApplicationController
 
   ############# user dashboard items #############
   def restart
-    @user = User.find(session[:user_id])
+    @user = @current_user
     @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id]).update(step: 0,
                                                                                                             status: 0)
     redirect_to technique_detail_user_path(technique_id: params[:technique_id], step_id: 0)
@@ -83,7 +82,7 @@ class UserController < ApplicationController
   end
 
   def like
-    @user = User.find(session[:user_id])
+    @user = @current_user
 
     if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id).nil?
       Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: 0)
@@ -98,7 +97,7 @@ class UserController < ApplicationController
   end
 
   def dislike
-    @user = User.find(session[:user_id])
+    @user = @current_user
 
     if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id).nil?
       Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 0, dislike: 1)
@@ -123,7 +122,7 @@ class UserController < ApplicationController
   end
 
   def send_invitation
-    @user = User.find(session[:user_id])
+    @user = @current_user
     @coach = Coach.find_by_id(params[:coach_id])
     if Invitation.find_by(user_id: @user.id).nil?
       Invitation.create(coach_id: @coach.id, user_id: @user.id, status: 0)
@@ -164,7 +163,7 @@ class UserController < ApplicationController
   end
 
   def technique_detail_user
-    @user = User.find(session[:user_id])
+    @user = @current_user
     @technique = Technique.find_by_id(params[:technique_id])
     @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
 

@@ -35,7 +35,7 @@ class SignUpCoachController < ApplicationController
   end
 
   def resend
-    @coach = Coach.find_by_id(session[:coach_id]) if session[:coach_id]
+    @coach = Coach.find(session[:coach_id]) if session[:coach_id]
     UserMailer.with(coach: @coach).welcome_email_coach.deliver_now
     render :create
   end

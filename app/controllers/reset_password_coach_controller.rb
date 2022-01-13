@@ -19,7 +19,7 @@ class ResetPasswordCoachController < ApplicationController
   end
 
   def update
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
     if @coach.update(updated_params)
       redirect_to sign_in_coach_path
     else

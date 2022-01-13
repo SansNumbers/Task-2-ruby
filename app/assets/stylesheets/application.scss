@@ -12,4 +12,11 @@
  *
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+ *= require sign_in
+ *= require sign_up
+ *= require landing
+ *= require coach
+ *= require user
+ *= require reset_password
  */

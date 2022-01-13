@@ -1,14 +1,14 @@
 class CoachController < ApplicationController
-  before_action :check_coach!
+  before_action :current_coach
 
   ############# coach update profile #############
   def edit
-    @coach = Coach.find_by_id(session[:coach_id])
+    @coach = @current_coach
     @problems = Problem.all
   end
 
   def update
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
     if @coach.update(updated_params)
       params[:coach][:problems]&.each do |problem|
         @coach.problems << Problem.find_by(title: problem)
@@ -20,11 +20,11 @@ class CoachController < ApplicationController
   end
 
   def password_update
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
   end
 
   def password_coach_update
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
     if BCrypt::Password.new(@coach.password_digest) == params[:coach][:old_password]
       if @coach.update(password_updated_params)
         redirect_to dashboard_coach_page_path(@coach.id)
@@ -38,17 +38,17 @@ class CoachController < ApplicationController
 
   ############# coach navbar items #############
   def dashboard
-    @coach = Coach.find_by_id(session[:coach_id])
+    @coach = @current_coach
     @problems = @coach.problems
+    @invitation = @coach.invitations
     @notifications = CoachNotification.where(coach_id: @coach.id)
-    @invitation = Invitation.where(coach_id: @coach.id, status: 1)
-    @recommendations = Recommendation.where(coach_id: @coach.id)
+    @recommendations = @coach.recommendations
     get_techniques_in_progress(@invitation)
     count_likes_on_techniques(@recommendations)
   end
 
   def coach_users
-    @coach = Coach.find_by_id(session[:coach_id])
+    @coach = @current_coach
     @notifications = CoachNotification.where.not(coach_id: @coach.id, user_id: nil)
     @count = Invitation.where(coach_id: @coach.id, status: 0).count
     @invitation = Invitation.where(coach_id: @coach.id)
@@ -56,21 +56,21 @@ class CoachController < ApplicationController
   end
 
   def library
-    @coach = Coach.find_by_id(session[:coach_id])
+    @coach = @current_coach
     @problems = Problem.all
     @techniques = Technique.all
   end
 
   ############# coach technique items #############
   def technique_detail
-    @coach = Coach.find_by_id(session[:coach_id])
+    @coach = @current_coach
     @technique = Technique.find_by_id(params[:technique_id])
     @steps = Step.where(technique_id: @technique.id)
   end
 
   ############# coach library items #############
   def new
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
     @users = @coach.invitations
     respond_to do |format|
       format.html
@@ -79,7 +79,7 @@ class CoachController < ApplicationController
   end
 
   def create
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
     @technique = Technique.find_by_id(params[:technique_id])
     users_names_list = params[:users].select! { |element| element&.size.to_i > 0 }
     users_names_list.each do |user_name|
@@ -89,7 +89,7 @@ class CoachController < ApplicationController
         UserNotification.create(body: "Coach #{@coach.name} recommended a Technique for you", user_id: user.id,
                                 coach_id: @coach.id, status: 1)
       else
-        flash[:warning] = "User #{user_name} is alraedy passed this technique!"
+        flash[:warning] = "User #{user_name} is already passed this technique!"
       end
     end
     redirect_to coach_users_page_path
@@ -97,7 +97,7 @@ class CoachController < ApplicationController
 
   ############# coach users items #############
   def user_detail
-    @coach = Coach.find(session[:coach_id])
+    @coach = @current_coach
     @invitation = Invitation.find_by(user_id: params[:user_id])
     @recommendations = Recommendation.where(user_id: params[:user_id])
     @notifications = CoachNotification.where(coach_id: @coach.id, user_id: @invitation.user.id)
