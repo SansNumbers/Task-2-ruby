@@ -83,10 +83,13 @@ class UserController < ApplicationController
   end
 
   def like
-    unless Rating.exists?(technique_id: params[:technique_id], user_id: @user.id)
+    @user = User.find(session[:user_id])
+
+    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id).nil?
       Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: 0)
       UserNotification.create(body: 'You liked your Technique', user_id: @user.id, status: 1)
     end
+
     recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
     recommendation.update(status: 2)
     recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
@@ -95,10 +98,13 @@ class UserController < ApplicationController
   end
 
   def dislike
-    unless Rating.exists?(technique_id: params[:technique_id], user_id: @user.id)
+    @user = User.find(session[:user_id])
+
+    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id).nil?
       Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 0, dislike: 1)
-      UserNotification.create(body: 'You disliked your Technique', user_id: @user.id, status: 1)
+      UserNotification.create(body: 'You dislike your Technique', user_id: @user.id, status: 1)
     end
+
     recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
     recommendation.update(status: 2)
     recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
@@ -140,6 +146,15 @@ class UserController < ApplicationController
     redirect_to user_dashboard_page_path(User.find(session[:user_id]))
   end
 
+  def modal_end_cooperation
+    @coach = Invitation.find_by(User.find(session[:user_id]), status: 1).coach
+    @invite = Invitation.find_by(User.find(session[:user_id]))
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   def end_cooperation
     @invite = Invitation.find_by_id(params[:invite_id])
     UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}",
@@ -155,22 +170,18 @@ class UserController < ApplicationController
 
     next_step = params[:step_id].to_i
 
-    if @recommendation.step <= @technique.total_steps
-      @recommendation.update(step: next_step, status: 1)
+    if next_step < @technique.total_steps
+      @recommendation.update(step: next_step + 1, status: 1)
       @recommendation.update(started_at: Time.zone.now) if @recommendation.started_at.nil?
+      @step = Step.find_by(number: next_step + 1)
+    else
+      @recommendation.update(ended_at: Time.zone.now) if @recommendation.ended_at.nil?
       @step = Step.find_by(number: next_step)
+      @recommendation.update(status: 2)
     end
   end
 
   ############# user technique items #############
-  def modal_end_cooperation
-    @coach = Invitation.find_by(user_id: User.find(session[:user_id]), status: 1).coach
-    @invite = Invitation.find_by(user_id: User.find(session[:user_id]))
-    respond_to do |format|
-      format.html
-      format.js
-    end
-  end
 
   private
 

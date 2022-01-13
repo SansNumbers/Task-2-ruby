@@ -342,7 +342,9 @@
             <p class="tages-info">Licenses and Certificates</p>
             <p class="education-data"><%= @invite.coach.licenses %></p>
             <form>
-              <div class="end-coop"><%= button_to 'END COOPERATION', end_cooperation_coach_invite_path(@invite.id), method: :delete, class: "get_down_link end-coop" %></div>
+            <div class="end-coop">
+              <%= link_to 'END COOPERATION', end_cooperation_path, {:remote => true, 'data-bs-toggle' =>  "modal", 'data-bs-target' => '#modal-window', class:"et_down_link end-coop"} %>
+            </div>
             </form>
           </div>
 

@@ -74,9 +74,9 @@ Rails.application.routes.draw do
   post 'user/:id/coaches/invitation/:coach_id', to: 'user#send_invitation'
 
   delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
-  delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_coach_invite'
 
-  get '/user/end', to: 'user#modal_end_cooperation', as: 'end_cooperation'
+  get '/user/dashboard/end', to: 'user#modal_end_cooperation', as: 'end_cooperation'
+  delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_confirm'
 
   # user technique items
   get '/user/:id/dashboard/:technique_id/step/:step_id', to: 'user#technique_detail_user', as: 'technique_detail_user'
