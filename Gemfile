@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.1'
 
 gem 'bcrypt'
+gem 'jwt', '~> 2.3'
+
 gem 'dotenv-rails', groups: %i[development test]
 gem 'image_processing', '>= 1.2'
 gem 'jbuilder', '~> 2.7'

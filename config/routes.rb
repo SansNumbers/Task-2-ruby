@@ -3,6 +3,18 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   root 'landing_page#index'
 
+  namespace :api do
+    post '/user/sign_in', to: 'auth#user_login'
+    post '/coach/sign_in', to: 'auth#coach_login'
+
+    post '/user/sign_up', to: 'registration#user_registration'
+    post '/coach/sign_up', to: 'registration#coach_registration'
+
+    get '/coach/users', to: 'coach#users'
+    get '/user/techniques', to: 'user#get_techniques'
+    get '/user/techniques/:technique_id/steps', to: 'user#steps'
+  end
+
   ###############################################################
   # SIGN UP
   # user
