@@ -53,39 +53,38 @@ Rails.application.routes.draw do
 
   scope '/user' do
     # user update profile
-    get 'dashboard', to: 'user#dashboard', as: 'dashboard_user_page'
     get 'update', to: 'user#edit', as: 'update_user_profile'
     patch 'update', to: 'user#update'
     get 'password_edit', to: 'user#password_update', as: 'password_change_user'
     patch 'password_edit', to: 'user#password_user_update'
 
     # user navbar items
-    get 'dashboard', to: 'user#dashboard', as: 'user_dashboard_page'
-    get 'techniques', to: 'user#techniques', as: 'user_techniques_page'
-    get 'coaches', to: 'user#coaches', as: 'user_coaches_page'
+    get 'dashboard', to: 'dashboard#dashboard', as: 'user_dashboard_page'
+    get 'techniques', to: 'technique#techniques', as: 'user_techniques_page'
+    get 'coaches', to: 'dashboard#coaches', as: 'user_coaches_page'
 
     scope '/dashboard' do
       # user dashboard items
-      patch ':technique_id/step/:step_id', to: 'user#restart', as: 'technique_restart_user'
-      get ':technique_id/step/:step_id/rate', to: 'user#rate', as: 'technique_rate_user'
+      patch ':technique_id/step/:step_id', to: 'technique#restart', as: 'technique_restart_user'
+      get ':technique_id/step/:step_id/rate', to: 'technique#rate', as: 'technique_rate_user'
 
-      post ':technique_id/step/:step_id/rate', to: 'user#like', as: 'like_rating'
-      patch ':technique_id/step/:step_id/rate', to: 'user#dislike', as: 'dislike_rating'
+      post ':technique_id/step/:step_id/rate', to: 'technique#like', as: 'like_rating'
+      patch ':technique_id/step/:step_id/rate', to: 'technique#dislike', as: 'dislike_rating'
 
-      get ':technique_id/step/:step_id', to: 'user#technique_detail_user',
+      get ':technique_id/step/:step_id', to: 'dashboard#technique_detail_user',
                                          as: 'technique_detail_user'
 
-      get 'end', to: 'user#modal_end_cooperation', as: 'end_cooperation'
+      get 'end', to: 'invitation#modal_end_cooperation', as: 'end_cooperation'
     end
 
     scope '/coaches' do
-      get 'invitation/:coach_id', to: 'user#coach_info', as: 'invitation'
-      post 'invitation/:coach_id', to: 'user#send_invitation'
+      get 'invitation/:coach_id', to: 'invitation#coach_info', as: 'invitation'
+      post 'invitation/:coach_id', to: 'invitation#send_invitation'
     end
 
-    delete 'cancel/:invite_id', to: 'user#cancel_invite', as: 'cancel_coach_invite'
+    delete 'cancel/:invite_id', to: 'invitation#cancel_invite', as: 'cancel_coach_invite'
 
-    delete 'end/:invite_id', to: 'user#end_cooperation', as: 'end_cooperation_confirm'
+    delete 'end/:invite_id', to: 'invitation#end_cooperation', as: 'end_cooperation_confirm'
   end
 
   ###############################################################
@@ -100,23 +99,23 @@ Rails.application.routes.draw do
     patch 'password_edit', to: 'coach#password_coach_update'
 
     # coach navbar items
-    get 'dashboard', to: 'coach#dashboard', as: 'dashboard_coach_page'
-    get 'my_users', to: 'coach#coach_users', as: 'coach_users_page'
-    get 'library', to: 'coach#library', as: 'coach_library_page'
+    get 'dashboard', to: 'coach_invitation#dashboard', as: 'dashboard_coach_page'
+    get 'my_users', to: 'coach_invitation#coach_users', as: 'coach_users_page'
+    get 'library', to: 'library#library', as: 'coach_library_page'
 
     scope '/library' do
       # coach technique items
-      get ':technique_id', to: 'coach#technique_detail', as: 'technique_detail_coach'
+      get ':technique_id', to: 'library#technique_detail', as: 'technique_detail_coach'
 
       # coach library items
-      get ':technique_id/recommendation', to: 'coach#new', as: 'recommend_to_users_page'
-      post ':technique_id/recommendation', to: 'coach#create'
+      get ':technique_id/recommendation', to: 'library#new', as: 'recommend_to_users_page'
+      post ':technique_id/recommendation', to: 'library#create'
     end
     # coach users items
-    get 'user/:user_id/detail', to: 'coach#user_detail', as: 'user_detail'
+    get 'user/:user_id/detail', to: 'coach_invitation#user_detail', as: 'user_detail' ######### correct!
 
-    patch 'confirm/:invite_id', to: 'coach#confirm', as: 'confirm_user_invite'
-    delete 'refuse/:invite_id', to: 'coach#refuse', as: 'refuse_user_invite'
+    patch 'confirm/:invite_id', to: 'coach_invitation#confirm', as: 'confirm_user_invite'
+    delete 'refuse/:invite_id', to: 'coach_invitation#refuse', as: 'refuse_user_invite'
   end
 
   ###############################################################

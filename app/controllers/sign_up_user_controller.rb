@@ -33,7 +33,7 @@ class SignUpUserController < ApplicationController
           end
         end
       end
-      redirect_to dashboard_user_page_path(@user.id)
+      redirect_to user_dashboard_page_path(@user.id)
     else
       render :edit
     end
