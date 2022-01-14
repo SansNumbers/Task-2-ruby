@@ -1,0 +1,2 @@
+module SignUpCoachHelper
+end
