@@ -5,7 +5,6 @@ class LibraryController < ApplicationController
     @coach = @current_coach
     @problems = Problem.all
     @techniques = Technique.all
-    
   end
 
   def new
@@ -29,11 +28,12 @@ class LibraryController < ApplicationController
     users_names_list = params[:users].select! { |element| element&.size.to_i > 0 }
     users_names_list.each do |user_name|
       user = User.find_by(name: user_name)
-      unless Recommendation.exists?(user_id: user.id, technique_id: @technique.id)
-        Recommendation.create(user_id: user.id, coach_id: @coach.id, technique_id: @technique.id, status: 0, step: 0)
-        UserNotification.create(body: "Coach #{@coach.name} recommended a Technique for you!", user_id: user.id, coach_id: @coach.id, status: 1)
-      else
+      if Recommendation.exists?(user_id: user.id, technique_id: @technique.id)
         flash[:warning] = "User #{user_name} is already passed this technique!"
+      else
+        Recommendation.create(user_id: user.id, coach_id: @coach.id, technique_id: @technique.id, status: 0, step: 0)
+        UserNotification.create(body: "Coach #{@coach.name} recommended a Technique for you!", user_id: user.id,
+                                coach_id: @coach.id, status: 1)
       end
     end
     redirect_to coach_users_page_path

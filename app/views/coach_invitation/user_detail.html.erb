@@ -19,7 +19,7 @@
           <span class="size-total"><i class="bi bi-check-circle"></i> Total progress</span>
           <div class="total-statistic">
             <div class="big-numder">
-              <%= Recommendation.where(status: 'compeleted', user_id: @invitation.user.id).count%>
+              <%= @techniques_completed %>
             </div>
             <div class="of">
               techniques completed
@@ -33,7 +33,7 @@
           <span class="size-total"><i class="bi bi-play-circle"></i> Current progress</span>
           <div class="total-statistic">
             <div class="big-numder">
-              <%= Recommendation.where(status: 'in_progress', user_id: @invitation.user.id).count%>
+              <%= @techniques_in_progress %>
             </div>
             <div class="of">
               techniques in process

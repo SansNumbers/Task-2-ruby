@@ -19,6 +19,8 @@ class CoachInvitationController < ApplicationController
     @invitation = Invitation.find_by(user_id: params[:user_id])
     @recommendations = Recommendation.where(user_id: params[:user_id])
     @notifications = CoachNotification.where(coach_id: @coach.id, user_id: @invitation.user.id)
+    @techniques_completed = Recommendation.where(status: 'compeleted', user_id: @invitation.user.id).count
+    @techniques_in_progress = Recommendation.where(status: 'in_progress', user_id: @invitation.user.id).count
   end
 
   def confirm

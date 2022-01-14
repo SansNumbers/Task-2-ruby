@@ -15,4 +15,16 @@ class Technique < ApplicationRecord
   has_one_attached :photo
 
   enum status: %i[new popular], _prefix: :status
+
+  def users_amount
+    Recommendation.where(technique_id: id).count
+    end
+
+  def likes_amount
+    Rating.where(technique_id: id).sum(:like)
+  end
+
+  def dislikes_amount
+    Rating.where(technique_id: id).sum(:dislike)
+  end
 end
