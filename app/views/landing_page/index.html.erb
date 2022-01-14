@@ -177,13 +177,6 @@
                   <br>
                   <div class="step">Steps:<strong> <%= technique.total_steps %></strong></div>
                   <div class="duration">Duration:<strong> <%= technique.duration %></strong></div>
-                  <% if Recommendation.where(technique_id: technique.id, coach_id: @coach.id).count <= 11 %>
-                    <div class="users-count">
-                      <%= Recommendation.where(technique_id: technique.id, coach_id: @coach.id).count %> users
-                    </div>
-                  <% else %>
-                    <div class="users-count">11+ users</div>
-                  <% end %>
                   <ul class="hr">
                     <li><i class="bi bi-people"></i> <%= technique.users_amount %></li>
                     <li><i class="bi bi-hand-thumbs-up"></i> <%= technique.likes_amount %></li>
