@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_14_135929) do
+ActiveRecord::Schema.define(version: 2022_01_14_170950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_135929) do
     t.text "socials"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "responses_count"
   end
 
   create_table "coaches_problems", id: false, force: :cascade do |t|
@@ -119,6 +120,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_135929) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "responses_count"
     t.index ["title"], name: "index_problems_on_title", unique: true
   end
 
@@ -161,6 +163,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_135929) do
     t.datetime "ended_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "responses_count"
     t.index ["coach_id"], name: "index_recommendations_on_coach_id"
     t.index ["technique_id"], name: "index_recommendations_on_technique_id"
     t.index ["user_id"], name: "index_recommendations_on_user_id"
@@ -191,6 +194,7 @@ ActiveRecord::Schema.define(version: 2022_01_14_135929) do
     t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "responses_count"
   end
 
   create_table "user_notifications", force: :cascade do |t|
