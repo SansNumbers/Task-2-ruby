@@ -7,7 +7,7 @@ class SignUpCoachController < ApplicationController
     @coach = Coach.new(coach_params)
     if @coach.save
       session[:coach_id] = @coach.id
-      UserMailer.with(coach: @coach).welcome_email_coach.deliver_now
+      UserMailer.with(coach: @coach).welcome_email_coach.deliver_later
       render :create
     else
       render :index
@@ -36,7 +36,7 @@ class SignUpCoachController < ApplicationController
 
   def resend
     @coach = Coach.find(session[:coach_id]) if session[:coach_id]
-    UserMailer.with(coach: @coach).welcome_email_coach.deliver_now
+    UserMailer.with(coach: @coach).welcome_email_coach.deliver_later
     render :create
   end
 

@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  layout 'user'
   before_action :current_user
 
   def edit

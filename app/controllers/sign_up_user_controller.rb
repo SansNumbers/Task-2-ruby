@@ -7,7 +7,7 @@ class SignUpUserController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      UserMailer.with(user: @user).welcome_email_user.deliver_now
+      UserMailer.with(user: @user).welcome_email_user.deliver_later
       render :create
     else
       render :index
@@ -41,7 +41,7 @@ class SignUpUserController < ApplicationController
 
   def resend
     @user = User.find_by_id(session[:user_id]) if session[:user_id]
-    UserMailer.with(user: @user).welcome_email_user.deliver_now
+    UserMailer.with(user: @user).welcome_email_user.deliver_later
     render :create
   end
 

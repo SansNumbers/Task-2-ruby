@@ -4,7 +4,7 @@ class ResetPasswordUserController < ApplicationController
   def create
     @user = User.find_by(email: params[:email]) if params[:email]
     if @user
-      ResetPasswordMailer.with(user: @user).reset_password_user.deliver_now
+      ResetPasswordMailer.with(user: @user).reset_password_user.deliver_later
       render :create
     else
       render :index
@@ -29,7 +29,7 @@ class ResetPasswordUserController < ApplicationController
 
   def resend
     @user = User.find_by(email: params[:email]) if params[:email]
-    ResetPasswordMailer.with(user: @user).reset_password_user.deliver_now
+    ResetPasswordMailer.with(user: @user).reset_password_user.deliver_later
     render :create
   end
 

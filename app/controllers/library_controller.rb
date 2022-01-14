@@ -38,5 +38,4 @@ class LibraryController < ApplicationController
     end
     redirect_to coach_users_page_path
   end
-
 end

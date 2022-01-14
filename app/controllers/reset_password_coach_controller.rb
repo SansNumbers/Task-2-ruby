@@ -4,7 +4,7 @@ class ResetPasswordCoachController < ApplicationController
   def create
     @coach = Coach.find_by(email: params[:email]) if params[:email]
     if @coach
-      ResetPasswordMailer.with(coach: @coach).reset_password_coach.deliver_now
+      ResetPasswordMailer.with(coach: @coach).reset_password_coach.deliver_later
       render :create
     else
       render :index
@@ -29,7 +29,7 @@ class ResetPasswordCoachController < ApplicationController
 
   def resend
     @coach = Coach.find_by(email: params[:email]) if params[:email]
-    ResetPasswordMailer.with(coach: @coach).reset_password_coach.deliver_now
+    ResetPasswordMailer.with(coach: @coach).reset_password_coach.deliver_later
     render :create
   end
 
