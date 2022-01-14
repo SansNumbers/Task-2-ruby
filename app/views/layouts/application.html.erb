@@ -22,12 +22,6 @@
 
   <body>
 
-  <% if content_for?(:navbar) %>
-    <%= yield(:navbar) %>
-    <% else %>
-    
-    <% end %>
-
   <%= render 'landing_page/header'%>
     <%= yield %>
     <footer>
