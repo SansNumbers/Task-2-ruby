@@ -147,79 +147,95 @@
     <div class="title">Techniques</div>
     <div class="about-techniques">Our service offers the best techniques for our users</div>
     <br>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-      <div class="col">
-        <div class="card h-100">
-          <div class="item">
-            <span class="notify-badge">NEW</span>
-            <img src="<%= asset_path('anthony-tran-vXymirxr5ac-unsplash.jpg') %>" class="card-img-top" alt="...">
-            <span class="tag-badge">Depression</span>
-          </div>
-          <div class="card-body">
-            <h6 class="title_card">Cognitive - Behavioral Therapy</h6>
-            <p class="description">Elimination of the dependence of emotions and human behavior on his thoughts.</p>
-            <div class="age">Age: <strong>25-35 years</strong></div>
-            <div class="gender">Gender:<strong> Male, Female</strong></div>
-            <br>
-            <div class="step">Steps: <strong>4</strong></div>
-            <div class="duration">Duration: <strong>6-7 hours</strong></div>
-            <ul class="hr">
-              <li><i class="bi bi-people"></i> 235</li>
-              <li><i class="bi bi-hand-thumbs-up"></i> 124</li>
-              <li><i class="bi bi-hand-thumbs-down"></i> 12</li>
-            </ul>
-          </div>
-        </div>
+    <div class="row">
+        <% @techniques.each do |technique|%>
+          <% if Recommendation.find_by(technique_id: technique.id) %>
+            <div class="col-6 distance">
+              <div class="card h-100">
+                <div class="item">
+                  <% if technique.photo.attached? %>
+                    <img src="<%= url_for(technique.photo) %>" class= "card-img-top" alt="...">
+                  <% else %>
+                    <img src="<%= asset_path('anthony-tran-vXymirxr5ac-unsplash.jpg') %>" class="card-img-top" alt="...">
+                  <% end %>
+
+                  <% if technique.problems %>
+                    <div class="tags-div-absolute">
+                      <% technique.problems.each do |problem|%>
+                        <span class="tags-in-image "><%= problem.title %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                </div>
+                <div class="card-body">
+                  <h6 class="title_card"><%= technique.title %></h6>
+
+                  <p class="description"><%= technique.description %></p>
+                  <div class="age">Age: <strong><%= technique.age %> years</strong></div>
+                  <div class="gender">Gender: <strong><%= technique.gender %></strong></div>
+                  <br>
+                  <div class="step">Steps:<strong> <%= technique.total_steps %></strong></div>
+                  <div class="duration">Duration:<strong> <%= technique.duration %></strong></div>
+                  <% if Recommendation.where(technique_id: technique.id, coach_id: @coach.id).count <= 11 %>
+                    <div class="users-count">
+                      <%= Recommendation.where(technique_id: technique.id, coach_id: @coach.id).count %> users
+                    </div>
+                  <% else %>
+                    <div class="users-count">11+ users</div>
+                  <% end %>
+                  <ul class="hr">
+                    <li><i class="bi bi-people"></i> <%= technique.users_amount %></li>
+                    <li><i class="bi bi-hand-thumbs-up"></i> <%= technique.likes_amount %></li>
+                    <li><i class="bi bi-hand-thumbs-down"></i> <%= technique.dislikes_amount %></li>
+                  </ul>
+                </div>
+                <br>
+              </div>
+
+            </div>
+          <% else %>
+            <div class="col-6 distance">
+              <div class="card h-100">
+                <div class="item">
+                  <% if technique.photo.attached? %>
+                    <img src="<%= url_for(technique.photo) %>" class= "card-img-top" alt="...">
+                  <% else %>
+                    <img src="<%= asset_path('anthony-tran-vXymirxr5ac-unsplash.jpg') %>" class="card-img-top" alt="...">
+                  <% end %>
+
+                  <% if technique.problems %>
+                    <div class="tags-div-absolute">
+                      <% technique.problems.each do |problem|%>
+                        <span class="tags-in-image "><%= problem.title %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
+
+                </div>
+                <div class="card-body">
+                  <h6 class="title_card"><%= technique.title %></h6>
+
+                  <p class="description"><%= technique.description %></p>
+                  <div class="age">Age: <strong><%= technique.age %> years</strong></div>
+                  <div class="gender">Gender: <strong><%= technique.gender %></strong></div>
+                  <br>
+                  <div class="step">Steps:<strong> <%= technique.total_steps %></strong></div>
+                  <div class="duration">Duration:<strong> <%= technique.duration %></strong></div>
+                  <ul class="hr">
+                    <li><i class="bi bi-people"></i> <%= technique.users_amount %></li>
+                    <li><i class="bi bi-hand-thumbs-up"></i> <%= technique.likes_amount %></li>
+                    <li><i class="bi bi-hand-thumbs-down"></i> <%= technique.dislikes_amount %></li>
+                  </ul>
+                </div>
+                <br>
+              </div>
+
+            </div>
+          <% end %>
+        <% end %>
       </div>
-      <div class="col">
-        <div class="card h-100">
-          <div class="item">
-            <span class="notify-badge">POPULAR</span>
-            <img src="<%= asset_path('kristina-tripkovic-nwWUBsW6ud4-unsplash.jpg') %>" class="card-img-top" alt="...">
-            <span class="tag-badge">Depression</span>
-            <span class="tag-badge-second">Anxiety</span>
-          </div>
-          <div class="card-body">
-            <h6 class="title_card">Lifestyle changes</h6>
-            <p class="description">Eliminating the lack of control that makes people feel worse.</p>
-            <div class="age">Age: 35-40 years</div>
-            <div class="gender">Gender: Male, Female</div>
-            <br>
-            <div class="step">Steps: 4</div>
-            <div class="duration">Duration: 5 hours</div>
-            <ul class="hr">
-              <li><i class="bi bi-people"></i> 311</li>
-              <li><i class="bi bi-hand-thumbs-up"></i> 214</li>
-              <li><i class="bi bi-hand-thumbs-down"></i> 34</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100">
-          <div class="item">
-            <span class="notify-badge">RECOMMENDED</span>
-            <img src="<%= asset_path('stefano-pollio-ZC0EbdLC8G0-unsplash.jpg') %>" class="card-img-top" alt="...">
-            <span class="tag-badge">Depression</span>
-          </div>
-          <div class="card-body">
-            <h6 class="title_card">Inflammation and mood</h6>
-            <p class="description">Does a dysfunctional immune system cause inflammation in the body, leading to mood
-              swings?</p>
-            <div class="age">Age: 35-40 years</div>
-            <div class="gender">Gender: Male, Female</div>
-            <br>
-            <div class="step">Steps: 4</div>
-            <div class="duration">Duration: 5 hours</div>
-            <ul class="hr">
-              <li><i class="bi bi-people"></i>311</li>
-              <li><i class="bi bi-hand-thumbs-up"></i>214</li>
-              <li><i class="bi bi-hand-thumbs-down"></i>34</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <br>
     <div class="about-techniques">Do you want to let go of your worries and fears?</div>
     <br>
@@ -236,162 +252,38 @@
     <div class="about-techniques">Ability to choose the coach, who will select each user technique individually</div>
     <br>
     <div class="row">
-      <div class="col-4">
-        <div class="card">
-          <div class="card-body">
-            <div class="avatar">
-              <div class="icon-link">
-                <i class="bi bi-facebook"></i>
-              </div>
-              <div class="image-avatar">
-                <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
-              </div>
-              <div class="icon-link">
-                <i class="bi bi-linkedin"></i>
-              </div>
-            </div>
-            <h6 class="coach-name">James Brown</h6>
-            <p class="status">Current coach</p>
-            <p class="coach-info">I know how to help you overcome Depression and Anxiety. I know modern techniques that
-              work.</p>
-            <p class="coach-info">36 years | Male | 27 users</p>
-            <p class="tages-info">Areas of Expertise</p>
-            <span class="tags">Depression</span>
-            <span class="tags">Anxiety</span>
-            <p class="tages-info">Education</p>
-            <p class="education-data">New York University, PhD in Psychology</p>
-            <p class="tages-info">Work experience</p>
-            <p class="education-data">Psychologist, ABC company, 12 years</p>
-            <p class="tages-info">Licenses and Certificates</p>
-            <p class="education-data">New York / 081109, New York University, 2009</p>
-            <br>
-            <div class="send-an-inv">SEND AN INVITATION</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="row">
+        <% @coaches.each do |coach|%>
           <div class="col-6">
             <div class="card">
               <div class="body">
                 <div class="small-card">
                   <div class="image-avatar-small">
-                    <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
+                    <% if coach.avatar.attached? %>
+                      <img src="<%= url_for(coach.avatar) %>" class= "image-size rounded-circle ">
+                    <% else %>
+                      <img src="<%= asset_path('generic-user-icon-10.png') %>" class="image-size rounded-circle">
+                    <% end %>
                   </div>
                   <div class="name-coach">
-                    <span class="coach-name">Amelia Adamson</span><br>
+                    <span class="coach-name"><%= coach.name %></span><br>
                     <span class="status">Coach</span>
-                    <p class="coach-info-left">36 years | Male | 27 users</p>
+                    <p class="coach-info-left"><%= coach.age %> years | <%= coach.gender %> | <%= Invitation.where(coach_id: coach.id).count%> users</p>
                     <p class="tages-info">Areas of Expertise</p>
-                    <span class="tags">Depression</span>
-                    <span class="tags">Anxiety</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <div class="body">
-                <div class="small-card">
-                  <div class="image-avatar-small">
-                    <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
-                  </div>
-                  <div class="name-coach">
-                    <span class="coach-name">Amelia Adamson</span><br>
-                    <span class="status">Coach</span>
-                    <p class="coach-info-left">36 years | Male | 27 users</p>
-                    <p class="tages-info">Areas of Expertise</p>
-                    <span class="tags">Depression</span>
-                    <span class="tags">Anxiety</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <div class="body">
-                <div class="small-card">
-                  <div class="image-avatar-small">
-                    <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
-                  </div>
-                  <div class="name-coach">
-                    <span class="coach-name">Amelia Adamson</span><br>
-                    <span class="status">Coach</span>
-                    <p class="coach-info-left">36 years | Male | 27 users</p>
-                    <p class="tages-info">Areas of Expertise</p>
-                    <span class="tags">Depression</span>
-                    <span class="tags">Anxiety</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <div class="body">
-                <div class="small-card">
-                  <div class="image-avatar-small">
-                    <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
-                  </div>
-                  <div class="name-coach">
-                    <span class="coach-name">Amelia Adamson</span><br>
-                    <span class="status">Coach</span>
-                    <p class="coach-info-left">36 years | Male | 27 users</p>
-                    <p class="tages-info">Areas of Expertise</p>
-                    <span class="tags">Depression</span>
-                    <span class="tags">Anxiety</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <br>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <div class="body">
-                <div class="small-card">
-                  <div class="image-avatar-small">
-                    <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
-                  </div>
-                  <div class="name-coach">
-                    <span class="coach-name">Amelia Adamson</span><br>
-                    <span class="status">Coach</span>
-                    <p class="coach-info-left">36 years | Male | 27 users</p>
-                    <p class="tages-info">Areas of Expertise</p>
-                    <span class="tags">Depression</span>
-                    <span class="tags">Anxiety</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="card">
-              <div class="body">
-                <div class="small-card">
-                  <div class="image-avatar-small">
-                    <img src="<%= asset_path('coach.jpg') %>" class="img-fluid rounded-circle mb-3">
-                  </div>
-                  <div class="name-coach">
-                    <span class="coach-name">Amelia Adamson</span><br>
-                    <span class="status">Coach</span>
-                    <p class="coach-info-left">36 years | Male | 27 users</p>
-                    <p class="tages-info">Areas of Expertise</p>
-                    <span class="tags">Depression</span>
-                    <span class="tags">Anxiety</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                    
+                    <% coach.problems.each do |coach_problems|%>
+                      <span class="tags"><%= coach_problems.title %></span>
+                    <% end %>
 
-        </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+          </div>
+        <% end %>
+
       </div>
 
-    </div>
     <div class="about-techniques">Do you want to help people?</div>
     <div class="about-techniques"> Do you have experience and skills in psychotherapy?</div>
     <br>
@@ -401,3 +293,4 @@
     </div>
   </div>
 </a>
+
