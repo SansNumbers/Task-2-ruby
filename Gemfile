@@ -30,6 +30,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'sassc-rails', '>= 2.1.0'
 
 gem 'sidekiq', '~> 6.3', '>= 6.3.1'
+gem 'sidekiq-cron'
 
 gem 'jquery-rails'
 
