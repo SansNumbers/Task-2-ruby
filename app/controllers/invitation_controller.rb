@@ -26,8 +26,8 @@ class InvitationController < ApplicationController
   end
 
   def modal_end_cooperation
-    @coach = Invitation.find_by(User.find(session[:user_id]), status: 1).coach
-    @invite = Invitation.find_by(User.find(session[:user_id]))
+    @coach = Invitation.find_by(@current_user, status: 1).coach
+    @invite = Invitation.find_by(@current_user)
     respond_to do |format|
       format.html
       format.js
@@ -39,7 +39,7 @@ class InvitationController < ApplicationController
     UserNotification.create(body: "You have ended cooperation with coach #{@invite.coach.name}",
                             user_id: @invite.user.id, coach_id: @invite.coach.id, status: 1)
     @invite.destroy
-    redirect_to user_dashboard_page_path(User.find(session[:user_id]))
+    redirect_to user_dashboard_page_path(@current_user)
   end
 
   def coach_info

@@ -7,6 +7,9 @@ class CoachInvitationController < ApplicationController
     @notifications = @coach.coach_notifications
     @invitation = @coach.invitations
     @recommendations = @coach.recommendations
+    @all_users = User.all.count
+    @all_coach_users = @coach.invitations.where(status: 1).count
+    @techniques_used = Recommendation.where(coach_id: @coach.id).count
     count_likes_on_techniques(@recommendations)
     get_techniques_in_progress(@invitation)
   end

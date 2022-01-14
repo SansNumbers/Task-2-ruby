@@ -8,7 +8,7 @@
           <div class="size-total-coach"><i class="bi bi-people"></i></div>
           <p class="tt">Total number </p>
           <p class="tt">of users</p>
-          <p class="coach-stats"><%= User.all.count %></p>
+          <p class="coach-stats"><%= @all_users %></p>
         </div>
 
       </div>
@@ -17,7 +17,7 @@
           <div class="size-total-coach"><i class="bi bi-person"></i></div>
           <p class="tt">Current number</p>
           <p class="tt">of users</p>
-          <p class="coach-stats"><%= Invitation.where(coach_id: @coach.id, status: 1).count%></p>
+          <p class="coach-stats"><%= @all_coach_users %></p>
         </div>
       </div>
       <div class="col-3">
@@ -25,7 +25,7 @@
           <div class="size-total-coach"><i class="bi bi-card-list"></i></div>
           <p class="tt">Total number of</p>
           <p class="tt">techniques used</p>
-          <p class="coach-stats"><%= Recommendation.where(coach_id: @coach.id).count%></p>
+          <p class="coach-stats"><%= @techniques_used %></p>
         </div>
       </div>
       <div class="col-3">
