@@ -4,9 +4,9 @@ class CoachInvitationController < ApplicationController
   def dashboard
     @coach = @current_coach
     @problems = @coach.problems
-    @notifications = CoachNotification.where(coach_id: @coach.id)
-    @invitation = Invitation.where(coach_id: @coach.id, status: 1)
-    @recommendations = Recommendation.where(coach_id: @coach.id)
+    @notifications = @coach.coach_notifications
+    @invitation = @coach.invitations
+    @recommendations = @coach.recommendations
     count_likes_on_techniques(@recommendations)
     get_techniques_in_progress(@invitation)
   end
@@ -42,7 +42,7 @@ class CoachInvitationController < ApplicationController
     @coach = @current_coach
     @notifications = CoachNotification.where.not(user_id: nil).where(coach_id: @coach.id)
     @count = Invitation.where(coach_id: @coach.id, status: 0).count
-    @invitation = Invitation.where(coach_id: @coach.id)
+    @invitation = @coach.invitations
     get_techniques_in_progress(@invitation)
   end
 
