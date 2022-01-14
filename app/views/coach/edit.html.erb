@@ -1,5 +1,3 @@
-<% content_for :content do %>
-
 <h6>
   <%= link_to "Cancel", dashboard_coach_page_path(@coach.id), class: "bi bi-chevron-left link-back" %>
 </h6>
@@ -121,6 +119,3 @@
 
   <%= f.submit 'SAVE CHANGES', class: "btn btn-sing-up marge-top"%>
 <% end %>
-
-<% end %>
-<%= render template: "coach/show" %>

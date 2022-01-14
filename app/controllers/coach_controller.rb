@@ -1,7 +1,6 @@
 class CoachController < ApplicationController
   before_action :current_coach
 
-  ############# coach update profile #############
   def edit
     @coach = @current_coach
     @problems = Problem.all

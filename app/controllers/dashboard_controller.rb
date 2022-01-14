@@ -4,9 +4,9 @@ class DashboardController < ApplicationController
   def dashboard
     @user = @current_user
     @problems = @user.problems
-    @notifications = UserNotification.where(user_id: @user.id)
+    @notifications = @user.user_notifications
     @invite = Invitation.find_by(user_id: @user.id)
-    @recommendations = Recommendation.where(user_id: @user.id).order(:status)
+    @recommendations = @user.recommendations
   end
 
   def technique_detail_user
