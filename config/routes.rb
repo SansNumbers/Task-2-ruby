@@ -112,7 +112,7 @@ Rails.application.routes.draw do
       post ':technique_id/recommendation', to: 'library#create'
     end
     # coach users items
-    get 'user/:user_id/detail', to: 'coach_invitation#user_detail', as: 'user_detail' ######### correct!
+    get 'user/:user_id/detail', to: 'coach_invitation#user_detail', as: 'user_detail'
 
     patch 'confirm/:invite_id', to: 'coach_invitation#confirm', as: 'confirm_user_invite'
     delete 'refuse/:invite_id', to: 'coach_invitation#refuse', as: 'refuse_user_invite'

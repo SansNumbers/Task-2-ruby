@@ -24,13 +24,14 @@ class TechniqueController < ApplicationController
   def like
     @user = @current_user
 
-    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id).nil?
-      Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: -1)
+    unless Rating.exists?(technique_id: params[:technique_id], user_id: @user.id)
+      Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: 0)
       UserNotification.create(body: 'You liked your Technique', user_id: @user.id, status: 1)
     end
 
     recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
-    recommendation.update(status: 1)
+    # status = 2, because technique is completed (watch models/recommendation.rb)
+    recommendation.update(status: 2)
     recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
     flash[:info] = 'You liked Technique'
     redirect_to user_dashboard_page_path
@@ -39,13 +40,14 @@ class TechniqueController < ApplicationController
   def dislike
     @user = @current_user
 
-    if Rating.find_by(technique_id: params[:technique_id], user_id: @user.id).nil?
-      Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 1, dislike: -1)
-      UserNotification.create(body: 'You dislike your Technique', user_id: @user.id, status: 1)
+    unless Rating.exists?(technique_id: params[:technique_id], user_id: @user.id)
+      Rating.create(technique_id: params[:technique_id], user_id: @user.id, like: 0, dislike: 1)
+      UserNotification.create(body: 'You disliked your Technique', user_id: @user.id, status: 1)
     end
 
     recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: @user.id)
-    recommendation.update(status: -1)
+    # status = 2, because technique is completed (watch models/recommendation.rb)
+    recommendation.update(status: 2)
     recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
     flash[:info] = 'You disliked Technique'
     redirect_to user_dashboard_page_path
