@@ -4,15 +4,9 @@ Rails.application.routes.draw do
   root 'landing_page#index'
 
   namespace :api do
-    post '/sign_in/user', to: 'sign_in#user_sign_in'
-    post '/coach/sign_in', to: 'sign_in#coach_sign_in'
-
-    post '/sign_up_user', to: 'sign_up#user_sign_up'
-    post '/sign_up_coach', to: 'sign_up#coach_sign_up'
-
-    get '/coach/users', to: 'coach#users'
-    get '/user/techniques', to: 'user#get_techniques'
-    get '/user/techniques/:technique_id/steps', to: 'user#steps'
+    post '/user_sign_up', to: 'sign_up#user_sign_up'
+    post '/user_sign_in', to: 'sign_in#user_sign_in'
+    get '/index', to: 'user#index'
   end
 
   ###############################################################
