@@ -6,13 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(name: 'Igor', email: 'kreig.antipin@gmail.com', password: 'q', age: 36, gender: 1)
+User.create(name: 'Igor', email: 'admin_example@gmail.com', password: 'Qwerty12345', age: 36, gender: 1)
 
 ################################## Coach seed ##################################
-Coach.create(name: 'James Brown', email: 'james123@brown.com', password: 'q', age: 36, gender: 0)
-Coach.create(name: 'Amelia Adamson', email: 'amelia123@gmail.com', password: 'q', age: 31, gender: 1)
-Coach.create(name: 'Gabriel Wilson', email: 'gabriel123@gmail.com', password: 'q', age: 32, gender: 1)
-Coach.create(name: 'Leo Ellington', email: 'leo123@gmail.com', password: 'q', age: 31, gender: 0)
+Coach.create(name: 'James Brown', email: 'james123@brown.com', password: 'Qwerty12345', age: 36, gender: 0)
+Coach.create(name: 'Amelia Adamson', email: 'amelia123@gmail.com', password: 'Qwerty12345', age: 31, gender: 1)
+Coach.create(name: 'Gabriel Wilson', email: 'gabriel123@gmail.com', password: 'Qwerty12345', age: 32, gender: 1)
+Coach.create(name: 'Leo Ellington', email: 'leo123@gmail.com', password: 'Qwerty12345', age: 31, gender: 0)
 
 ################################## Problem seed ##################################
 Problem.create(title: 'Stress')

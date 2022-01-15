@@ -177,7 +177,6 @@
             <% else %>
               <img src="<%= asset_path('generic-user-icon-10.png') %>" class="image-size rounded-circle">
             <% end %>
-            <div class="check-circle-dashbord"><i class="bi bi-check-circle-fill"></i></div>
           </div>
           <div class="name-coach">
             <span class="coach-name"><%= @coach.name %></span><br>
@@ -190,8 +189,8 @@
           </div>
           <p class="tages-info">Areas of Expertise</p>
           <% if @problems %>
-            <% @problems.each do |p| %>
-              <span class="tags"><%= p[:name] %></span>
+            <% @problems.each do |problem| %>
+              <span class="tags"><%= problem[:title] %></span>
             <% end %>
           <% end %>
         </div>
