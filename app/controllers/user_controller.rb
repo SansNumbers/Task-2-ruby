@@ -1,10 +1,7 @@
 class UserController < ApplicationController
   before_action :current_user
 
-  def edit
-    @user = @current_user
-    @problems = Problem.all
-  end
+  def edit; end
 
   def update
     @user = @current_user
