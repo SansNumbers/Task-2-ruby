@@ -2,14 +2,13 @@ class InvitationController < ApplicationController
   before_action :current_user
 
   def send_invitation
-    @user = @current_user
     @coach = Coach.find_by_id(params[:coach_id])
-    if Invitation.find_by(user_id: @user.id).nil?
-      Invitation.create(coach_id: @coach.id, user_id: @user.id, status: 0)
-      UserNotification.create(body: "You have sent an invitation to coach #{@coach.name}", user_id: @user.id,
+    if Invitation.find_by(user_id: current_user.id).nil?
+      Invitation.create(coach_id: @coach.id, user_id: current_user.id, status: 0)
+      UserNotification.create(body: "You have sent an invitation to coach #{@coach.name}", user_id: current_user.id,
                               coach_id: @coach.id, status: 1)
-      CoachNotification.create(body: "You have received an invitation to become a coach from a user #{@user.name}",
-                               coach_id: @coach.id, user_id: @user.id, status: 1)
+      CoachNotification.create(body: "You have received an invitation to become a coach from a user #{current_user.name}",
+                               coach_id: @coach.id, user_id: current_user.id, status: 1)
       redirect_to user_dashboard_page_path, notice: 'You have sent an invitation to coach!'
     else
       flash[:alert] = 'First, cancel the invitation to another coach!'

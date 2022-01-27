@@ -2,17 +2,15 @@ class DashboardController < ApplicationController
   before_action :current_user
 
   def dashboard
-    @user = @current_user
-    @problems = @user.problems
-    @notifications = @user.user_notifications
-    @invite = Invitation.find_by(user_id: @user.id)
-    @recommendations = @user.recommendations
+    @problems = current_user.problems
+    @notifications = current_user.user_notifications
+    @invite = Invitation.find_by(user_id: current_user.id)
+    @recommendations = current_user.recommendations
   end
 
   def technique_detail_user
-    @user = @current_user
     @technique = Technique.find_by_id(params[:technique_id])
-    @recommendation = Recommendation.find_by(user_id: @user.id, technique_id: params[:technique_id])
+    @recommendation = Recommendation.find_by(user_id: current_user.id, technique_id: params[:technique_id])
 
     next_step = params[:step_id].to_i
 
@@ -28,9 +26,8 @@ class DashboardController < ApplicationController
   end
 
   def coaches
-    @user = @current_user
     @coahes = Coach.all
     @problems = Problem.all
-    @invite = Invitation.find_by(user_id: @user.id)
+    @invite = Invitation.find_by(user_id: current_user.id)
   end
 end

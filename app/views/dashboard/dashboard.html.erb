@@ -12,7 +12,7 @@
           <span class="size-total"><i class="bi bi-check-circle"></i> Total progress</span>
           <div class="total-statistic">
             <div class="big-numder">
-              <%= Recommendation.where(status: 'compeleted', user_id: @user.id).count%>
+              <%= Recommendation.completed.count%>
             </div>
             <div class="of">
               techniques completed
@@ -26,7 +26,7 @@
           <span class="size-total"><i class="bi bi-play-circle"></i> Current progress</span>
           <div class="total-statistic">
             <div class="big-numder">
-              <%= Recommendation.where(status: 'in_progress', user_id: @user.id).count%>
+              <%= Recommendation.in_progress.count%>
             </div>
             <div class="of">
               techniques in process
@@ -152,16 +152,16 @@
         <div class="small-card">
           <div class="image-avatar-small">
 
-            <% if @user.user_avatar.attached? %>
-              <img src="<%= url_for(@user.user_avatar) %>" class= "image-size rounded-circle ">
+            <% if @current_user.user_avatar.attached? %>
+              <img src="<%= url_for(@current_user.user_avatar) %>" class= "image-size rounded-circle ">
             <% else %>
               <img src="<%= asset_path('generic-user-icon-10.png') %>" class="image-size rounded-circle">
             <% end %>
           </div>
           <div class="name-coach">
-            <span class="coach-name"><%= @user.name %></span><br>
-            <span class="status"><%= @user.email %></span>
-            <p class="coach-info-left"><%= @user.age %> years | <%= @user.gender %></p>
+            <span class="coach-name"><%= @current_user.name %></span><br>
+            <span class="status"><%= @current_user.email %></span>
+            <p class="coach-info-left"><%= @current_user.age %> years | <%= @current_user.gender %></p>
             <div class="edit-prof">
               <i class="bi bi-three-dots-vertical"></i>
             </div>
@@ -260,8 +260,8 @@
               <% if data.coach_id && data.user_id %>
                 <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
               <% else %>
-                <% if @user.user_avatar.attached? %>
-                  <img src="<%= url_for(@user.user_avatar) %>" class= "rounded-circle notification-avatar">
+                <% if @current_user.user_avatar.attached? %>
+                  <img src="<%= url_for(@current_user.user_avatar) %>" class= "rounded-circle notification-avatar">
                 <% else %>
                   <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                 <% end %>
@@ -289,4 +289,3 @@
 
 </div>
 </div>
-

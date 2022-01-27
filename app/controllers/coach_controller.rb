@@ -28,10 +28,10 @@ class CoachController < ApplicationController
       if @coach.update(password_updated_params)
         redirect_to dashboard_coach_page_path(@coach.id)
       else
-        render :password_edit
+        render :password_update
       end
     else
-      render :password_edit
+      render :password_update
     end
   end
 

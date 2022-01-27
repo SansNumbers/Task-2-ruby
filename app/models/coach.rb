@@ -27,10 +27,10 @@ class Coach < ApplicationRecord
   has_many :recommendations
   has_many :techniques, through: :recommendations
 
-  validates :password,
-            presence: true,
-            format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}\z/ },
-            allow_nil: true
+#   validates :password,
+#             presence: true,
+#             format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}\z/ },
+#             allow_nil: true
 
   has_one_attached :avatar
 end

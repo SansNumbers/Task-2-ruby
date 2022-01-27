@@ -21,10 +21,10 @@ class Technique < ApplicationRecord
     end
 
   def likes_amount
-    Rating.where(technique_id: id).sum(:like)
+    ratings.sum(:like)
   end
 
   def dislikes_amount
-    Rating.where(technique_id: id).sum(:dislike)
+    ratings.sum(:dislike)
   end
 end
