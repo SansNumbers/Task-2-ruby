@@ -257,16 +257,11 @@
           <% else %>
           <div class="row">
             <div class="col-2 notif-avatar-block">
-              <% if data.coach_id && data.user_id %>
-                <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
-              <% else %>
                 <% if @current_user.user_avatar.attached? %>
-                  <img src="<%= url_for(@current_user.user_avatar) %>" class= "rounded-circle notification-avatar">
+                    <img src="<%= url_for(@current_user.user_avatar) %>" class= "rounded-circle notification-avatar">
                 <% else %>
-                  <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
+                    <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                 <% end %>
-              <% end %>
-
             </div>
             <div class="col-7">
               <p class="notif-text-block"><%= data.body %></p>
