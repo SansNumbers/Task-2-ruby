@@ -195,8 +195,8 @@
                     <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                 <% end %>
             <% else %>
-              <% if @current_coach.avatar.attached? %>
-                <img src="<%= url_for(@current_coach.avatar) %>" class= "rounded-circle notification-avatar">
+              <% if @current_coach.coach_avatar.attached? %>
+                <img src="<%= url_for(@current_coach.coach_avatar) %>" class= "rounded-circle notification-avatar">
               <% else %>
                 <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
               <% end %>

@@ -54,8 +54,8 @@
                     <div class="duration">Duration: <strong><%= recommendation.technique.duration %></strong></div>
                     <div class="row">
                       <div class="col-2 image-coach-techinque">
-                        <% if recommendation.coach.avatar.attached? %>
-                          <img src="<%= url_for(recommendation.coach.avatar) %>" class= "rounded-circle notification-avatar">
+                        <% if recommendation.coach.coach_avatar.attached? %>
+                          <img src="<%= url_for(recommendation.coach.coach_avatar) %>" class= "rounded-circle notification-avatar">
                         <% else %>
                           <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                         <% end %>
@@ -119,8 +119,8 @@
                         <div class="duration">Duration: <strong><%= recommendation.technique.duration %></strong></div>
                         <div class="row">
                           <div class="col-2 image-coach-techinque">
-                            <% if recommendation.coach.avatar.attached? %>
-                              <img src="<%= url_for(recommendation.coach.avatar) %>" class= "rounded-circle notification-avatar">
+                            <% if recommendation.coach.coach_avatar.attached? %>
+                              <img src="<%= url_for(recommendation.coach.coach_avatar) %>" class= "rounded-circle notification-avatar">
                             <% else %>
                               <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                             <% end %>
@@ -177,8 +177,8 @@
                         <div class="duration">Duration: <strong><%= recommendation.technique.duration %></strong></div>
                         <div class="row">
                           <div class="col-2 image-coach-techinque">
-                            <% if recommendation.coach.avatar.attached? %>
-                              <img src="<%= url_for(recommendation.coach.avatar) %>" class= "rounded-circle notification-avatar">
+                            <% if recommendation.coach.coach_avatar.attached? %>
+                              <img src="<%= url_for(recommendation.coach.coach_avatar) %>" class= "rounded-circle notification-avatar">
                             <% else %>
                               <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                             <% end %>
@@ -237,8 +237,8 @@
                         <div class="duration">Duration: <strong><%= recommendation.technique.duration %></strong></div>
                         <div class="row">
                           <div class="col-2 image-coach-techinque">
-                            <% if recommendation.coach.avatar.attached? %>
-                              <img src="<%= url_for(recommendation.coach.avatar) %>" class= "rounded-circle notification-avatar">
+                            <% if recommendation.coach.coach_avatar.attached? %>
+                              <img src="<%= url_for(recommendation.coach.coach_avatar) %>" class= "rounded-circle notification-avatar">
                             <% else %>
                               <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle notification-avatar">
                             <% end %>
@@ -305,8 +305,8 @@
                 <i class="bi bi-facebook"></i>
               </div>
               <div class="image-avatar">
-                <% if @invite.coach.avatar.attached? %>
-                  <img src="<%= url_for(@invite.coach.avatar) %>" class= "c-u-a rounded-circle">
+                <% if @invite.coach.coach_avatar.attached? %>
+                  <img src="<%= url_for(@invite.coach.coach_avatar) %>" class= "c-u-a rounded-circle">
                 <% else %>
                   <img src="<%= asset_path('generic-user-icon-10.png') %>" class="c-u-a rounded-circle">
                 <% end %>

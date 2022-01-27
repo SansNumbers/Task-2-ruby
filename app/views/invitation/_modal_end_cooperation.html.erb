@@ -1,6 +1,6 @@
 <div class="modal-header">
-  <% if @coach.avatar.attached? %>
-    <img src="<%= url_for(@coach.avatar) %>" class= "modal-avatar-size  rounded-circle">
+  <% if @coach.coach_avatar.attached? %>
+    <img src="<%= url_for(@coach.coach_avatar) %>" class= "modal-avatar-size  rounded-circle">
   <% else %>
     <img src="<%= asset_path('generic-user-icon-10.png') %>" class="modal-avatar-size  rounded-circle">
   <% end %>

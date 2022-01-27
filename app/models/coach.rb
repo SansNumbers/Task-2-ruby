@@ -32,5 +32,5 @@ class Coach < ApplicationRecord
 #             format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}\z/ },
 #             allow_nil: true
 
-  has_one_attached :avatar
+  has_one_attached :coach_avatar
 end

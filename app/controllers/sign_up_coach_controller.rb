@@ -47,6 +47,6 @@ class SignUpCoachController < ApplicationController
   end
 
   def updated_params
-    params.require(:coach).permit(:avatar, :age, :gender, :education, :experience, :licenses, :socials)
+    params.require(:coach).permit(:coach_avatar, :age, :gender, :education, :experience, :licenses, :socials)
   end
 end

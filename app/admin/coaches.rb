@@ -1,5 +1,5 @@
 ActiveAdmin.register Coach do
-  permit_params :name, :email, :age, :gender, :about, :password, :avatar, :education, :experience, :licenses, :socials
+  permit_params :name, :email, :age, :gender, :about, :password, :coach_avatar, :education, :experience, :licenses, :socials
 
   filter :email
   filter :name
@@ -17,7 +17,7 @@ ActiveAdmin.register Coach do
       f.input :experience
       f.input :licenses
       f.input :socials
-      f.input :avatar, as: :file
+      f.input :coach_avatar, as: :file
     end
     f.actions
   end

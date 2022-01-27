@@ -5,8 +5,8 @@
           <i class="bi bi-facebook"></i>
         </div>
         <div class="image-avatar">
-          <% if @coach.avatar.attached? %>
-            <img src="<%= url_for(@coach.avatar) %>" class= "invite-avatar rounded-circle ">
+          <% if @coach.coach_avatar.attached? %>
+            <img src="<%= url_for(@coach.coach_avatar) %>" class= "invite-avatar rounded-circle ">
           <% else %>
             <img src="<%= asset_path('generic-user-icon-10.png') %>" class="img-fluid rounded-circle mb-3">
           <% end %>

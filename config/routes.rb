@@ -121,7 +121,7 @@ Rails.application.routes.draw do
   patch '/reset_password/edit', to: 'reset_password_user#update'
 
   # coach
-  get '/reset_password_coach', to: 'reset_password_coach#new'
+  get '/reset_password_coach', to: 'reset_password_coach#index'
   post '/reset_password_coach', to: 'reset_password_coach#create'
   get '/reset_password_coach/edit', to: 'reset_password_coach#edit'
   patch '/reset_password_coach/edit', to: 'reset_password_coach#update'

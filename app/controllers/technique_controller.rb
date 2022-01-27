@@ -24,11 +24,6 @@ class TechniqueController < ApplicationController
       Rating.create(technique_id: params[:technique_id], user_id: current_user.id, like: 1, dislike: 0)
       UserNotification.create(body: 'You liked your Technique', user_id: current_user.id, status: 1)
     end
-
-    recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: current_user.id)
-    # status = 2, because technique is completed (watch models/recommendation.rb)
-    recommendation.update(status: 2)
-    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
     flash[:info] = 'You liked Technique'
     redirect_to user_dashboard_page_path
   end
@@ -38,11 +33,6 @@ class TechniqueController < ApplicationController
       Rating.create(technique_id: params[:technique_id], user_id: current_user.id, like: 0, dislike: 1)
       UserNotification.create(body: 'You disliked your Technique', user_id: current_user.id, status: 1)
     end
-
-    recommendation = Recommendation.find_by(technique_id: params[:technique_id], user_id: current_user.id)
-    # status = 2, because technique is completed (watch models/recommendation.rb)
-    recommendation.update(status: 2)
-    recommendation.update(ended_at: Time.zone.now) if recommendation.ended_at.nil?
     flash[:info] = 'You disliked Technique'
     redirect_to user_dashboard_page_path
   end

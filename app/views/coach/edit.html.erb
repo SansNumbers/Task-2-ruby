@@ -7,8 +7,8 @@
 
 <%= form_with multipart: true, model: @current_coach, class: "form-update", url: update_coach_profile_path do |f| %>
   <div class="image-input-coach">
-    <% if @current_coach.avatar.attached? %>
-      <img src="<%= url_for(@current_coach.avatar) %>" class= "rounded-circle" id="output">
+    <% if @current_coach.coach_avatar.attached? %>
+      <img src="<%= url_for(@current_coach.coach_avatar) %>" class= "rounded-circle" id="output">
     <% else %>Information
       <img src="<%= asset_path('camera.png') %>" class="rounded-circle" id="output">
     <% end %>
@@ -17,7 +17,7 @@
       <p class="upload-text">Image format should be png, jpg</p>
       <p class="upload-text">no more than 5 Mb</p>
     </label>
-    <input type="file" accept="image/*" name="coach[avatar]" id="avatar" onchange="loadFile(event)">
+    <input type="file" accept="image/*" name="coach[coach_avatar]" id="avatar" onchange="loadFile(event)">
     <script>
       var loadFile = function(event) {
         var output = document.getElementById('output');
