@@ -2,25 +2,25 @@ class CoachInvitationController < ApplicationController
   before_action :current_coach
 
   def dashboard
-    @coach = @current_coach
-    @problems = @coach.problems
-    @notifications = @coach.coach_notifications
-    @invitation = @coach.invitations
-    @recommendations = @coach.recommendations
+    @problems = current_coach.problems
+    @notifications = current_coach.coach_notifications
+    @invitation = current_coach.invitations
+    @recommendations = current_coach.recommendations
     @all_users = User.all.count
-    @all_coach_users = @coach.invitations.where(status: 1).count
-    @techniques_used = Recommendation.where(coach_id: @coach.id).count
+    @all_coach_users = current_coach.invitations.where(status: 1).count
+    @techniques_used = Recommendation.where(coach_id: current_coach.id).count
     count_likes_on_techniques(@recommendations)
     get_techniques_in_progress(@invitation)
   end
 
   def user_detail
-    @coach = @current_coach
+    user = User.find(params[:user_id])
     @invitation = Invitation.find_by(user_id: params[:user_id])
     @recommendations = Recommendation.where(user_id: params[:user_id])
-    @notifications = CoachNotification.where(coach_id: @coach.id, user_id: @invitation.user.id)
-    @techniques_completed = Recommendation.where(status: 'compeleted', user_id: @invitation.user.id).count
-    @techniques_in_progress = Recommendation.where(status: 'in_progress', user_id: @invitation.user.id).count
+
+    @notifications = current_coach.coach_notifications.with_user(user.id)
+    @techniques_completed = Recommendation.completed.count
+    @techniques_in_progress = Recommendation.in_progress.count
   end
 
   def confirm
@@ -44,10 +44,9 @@ class CoachInvitationController < ApplicationController
   end
 
   def coach_users
-    @coach = @current_coach
-    @notifications = CoachNotification.where.not(user_id: nil).where(coach_id: @coach.id)
-    @count = Invitation.where(coach_id: @coach.id, status: 0).count
-    @invitation = @coach.invitations
+    @notifications = CoachNotification.where.not(user_id: nil).where(coach_id: current_coach.id)
+    @count = Invitation.where(coach_id: current_coach.id, status: 0).count
+    @invitation = current_coach.invitations
     get_techniques_in_progress(@invitation)
   end
 

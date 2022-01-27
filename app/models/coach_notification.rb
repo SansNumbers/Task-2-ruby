@@ -2,5 +2,5 @@ class CoachNotification < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :coach
 
-#   scope :with_user, { where(coach_id: @coach.id, user_id: @invitation.user.id) }
+  scope :with_user, ->(user_id) { where('id > ?', user_id) }
 end

@@ -90,8 +90,8 @@
 
             </div>
             <div class="me-3 dropdown">
-            <% if @coach.avatar.attached? %>
-                <img src="<%= url_for(@coach.avatar) %>" class= "rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+            <% if @current_coach.avatar.attached? %>
+                <img src="<%= url_for(@current_coach.avatar) %>" class= "rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
             <% else %>
                 <img src="<%= asset_path('generic-user-icon-10.png') %>" class="rounded-circle size-image" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
             <% end %>

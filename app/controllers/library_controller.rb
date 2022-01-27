@@ -2,14 +2,12 @@ class LibraryController < ApplicationController
   before_action :current_coach
 
   def library
-    @coach = @current_coach
     @problems = Problem.all
     @techniques = Technique.all
   end
 
   def new
-    @coach = @current_coach
-    @users = @coach.invitations
+    @users = current_coach.invitations
     respond_to do |format|
       format.html
       format.js
@@ -17,13 +15,11 @@ class LibraryController < ApplicationController
   end
 
   def technique_detail
-    @coach = @current_coach
     @technique = Technique.find_by_id(params[:technique_id])
     @steps = Step.where(technique_id: @technique.id)
   end
 
   def create
-    @coach = @current_coach
     @technique = Technique.find_by_id(params[:technique_id])
     users_names_list = params[:users].select! { |element| element&.size.to_i > 0 }
     users_names_list.each do |user_name|
@@ -31,9 +27,10 @@ class LibraryController < ApplicationController
       if Recommendation.exists?(user_id: user.id, technique_id: @technique.id)
         flash[:warning] = "User #{user_name} is already passed this technique!"
       else
-        Recommendation.create(user_id: user.id, coach_id: @coach.id, technique_id: @technique.id, status: 0, step: 0)
-        UserNotification.create(body: "Coach #{@coach.name} recommended a Technique for you!", user_id: user.id,
-                                coach_id: @coach.id, status: 1)
+        Recommendation.create(user_id: user.id, coach_id: current_coach.id, technique_id: @technique.id, status: 0,
+                              step: 0)
+        UserNotification.create(body: "Coach #{current_coach.name} recommended a Technique for you!", user_id: user.id,
+                                coach_id: current_coach.id, status: 1)
       end
     end
     redirect_to coach_users_page_path

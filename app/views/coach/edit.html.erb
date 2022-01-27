@@ -1,14 +1,14 @@
 <h6>
-  <%= link_to "Cancel", dashboard_coach_page_path(@coach.id), class: "bi bi-chevron-left link-back" %>
+  <%= link_to "Cancel", dashboard_coach_page_path(@current_coach.id), class: "bi bi-chevron-left link-back" %>
 </h6>
 <div class="personal-block-h">
   <h5 class="personal-info">Personal information</h5>
 </div>
 
-<%= form_with multipart: true, model: @coach, class: "form-update", url: update_coach_profile_path do |f| %>
+<%= form_with multipart: true, model: @current_coach, class: "form-update", url: update_coach_profile_path do |f| %>
   <div class="image-input-coach">
-    <% if @coach.avatar.attached? %>
-      <img src="<%= url_for(@coach.avatar) %>" class= "rounded-circle" id="output">
+    <% if @current_coach.avatar.attached? %>
+      <img src="<%= url_for(@current_coach.avatar) %>" class= "rounded-circle" id="output">
     <% else %>Information
       <img src="<%= asset_path('camera.png') %>" class="rounded-circle" id="output">
     <% end %>

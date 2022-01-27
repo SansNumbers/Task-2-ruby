@@ -172,16 +172,16 @@
         <div class="small-card">
           <div class="image-avatar-small">
 
-            <% if @coach.avatar.attached? %>
-              <img src="<%= url_for(@coach.avatar) %>" class= "image-size rounded-circle ">
+            <% if @current_coach.avatar.attached? %>
+              <img src="<%= url_for(@current_coach.avatar) %>" class= "image-size rounded-circle ">
             <% else %>
               <img src="<%= asset_path('generic-user-icon-10.png') %>" class="image-size rounded-circle">
             <% end %>
           </div>
           <div class="name-coach">
-            <span class="coach-name"><%= @coach.name %></span><br>
-            <span class="status"><%= @coach.email %></span>
-            <p class="coach-info-left"><%= @coach.age %> years | <%= @coach.gender %></p>
+            <span class="coach-name"><%= @current_coach.name %></span><br>
+            <span class="status"><%= @current_coach.email %></span>
+            <p class="coach-info-left"><%= @current_coach.age %> years | <%= @current_coach.gender %></p>
             <div class="edit-prof">
               <i class="bi bi-three-dots-vertical"></i>
             </div>

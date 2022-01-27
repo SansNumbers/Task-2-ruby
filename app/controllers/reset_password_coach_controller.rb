@@ -19,8 +19,7 @@ class ResetPasswordCoachController < ApplicationController
   end
 
   def update
-    @coach = @current_coach
-    if @coach.update(updated_params)
+    if current_coach.update(updated_params)
       redirect_to sign_in_coach_path
     else
       render :edit
